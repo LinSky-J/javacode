@@ -160,68 +160,7 @@ public class StaticAndInnerClassesMechanism {
         }
     }
 
-    // ================================= 辅助演示实体与内部类 =================================
 
-    /**
-     * 辅助类：演示静态变量与静态方法
-     */
-    static class CompanyEmployee {
-        public static String companyName; // 静态变量（全局共享）
-        private String employeeName; // 实例变量
-
-        public CompanyEmployee(String employeeName) {
-            this.employeeName = employeeName;
-        }
-
-        public String getCompany() {
-            return companyName;
-        }
-
-        // 静态方法：通过类名直接调用
-        public static void printCompanyNotice(String notice) {
-            System.out.println("   [公司广播通知] " + companyName + " 发布通知: " + notice);
-        }
-    }
-
-    /**
-     * 外部类宿主：演示内部类与 this$0 底层机制
-     */
-    static class OuterClass {
-        private String outerName;
-        private static String staticOuterInfo = "外部类静态信息";
-
-        public OuterClass(String outerName) {
-            this.outerName = outerName;
-        }
-
-        private void privateOuterMethod() {
-            System.out.println("   [外部类私有方法触发] 来自宿主: " + outerName);
-        }
-
-        /**
-         * 静态内部类：独立存在，无外部类引用
-         */
-        static class StaticNestedClass {
-            public void display() {
-                System.out.println("   [静态内部类] 访问外部静态变量: " + staticOuterInfo + " (无法访问非静态的 outerName)");
-            }
-        }
-
-        /**
-         * 非静态内部类：绝对依附于外部类实例，编译器合成 this$0
-         */
-        class NonStaticInnerClass {
-            public void display() {
-                System.out.println("   [非静态内部类] 顺畅直接读取外部类私有属性: " + outerName);
-                privateOuterMethod(); // 直接调用外部类私有方法！
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "OuterClass{outerName='" + outerName + "'}@" + Integer.toHexString(System.identityHashCode(this));
-        }
-    }
 
     /**
      * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。

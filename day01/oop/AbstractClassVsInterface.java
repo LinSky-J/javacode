@@ -169,8 +169,14 @@ public class AbstractClassVsInterface {
          *      级联调用抽象父类的构造方法，用于初始化抽象父类中声明的成员变量！
          */
 
-        // 匿名内部类代码实测
-        TemplateTask anonymousTask = new TemplateTask("数据导出任务") {
+        // 方式一：企业规范实践——通过独立的具体子类 DataExportTask（独立位于 DataExportTask.java 文件中）完成实例化
+        System.out.println("   [方式一] 实例化独立的具体子类 DataExportTask（推荐的企业开发模式）：");
+        DataExportTask concreteTask = new DataExportTask("企业月度财务报表导出任务");
+        concreteTask.start();
+
+        // 方式二：匿名内部类代码实测（探究底层本质）
+        System.out.println("   [方式二] 匿名内部类写法实测（探究底层伪实例化的本质）：");
+        TemplateTask anonymousTask = new TemplateTask("实时日志同步任务") {
             @Override
             public void executeJob() {
                 System.out.println("   [匿名内部类执行] 正在执行具体的数据导出业务逻辑...");
@@ -178,7 +184,7 @@ public class AbstractClassVsInterface {
         };
         anonymousTask.start();
 
-        System.out.println("   结论：抽象类自身绝不能直接实例化；匿名内部类本质是实例化了一个隐式的子类。");
+        System.out.println("   结论：抽象类自身绝不能直接实例化；子类（无论是独立 .java 文件还是匿名内部类）才是实例化的实体。");
     }
 
     /**
@@ -203,65 +209,6 @@ public class AbstractClassVsInterface {
          *    - 试图在接口中写 interface Foo { Foo(); } 编译器会直接报错！
          */
         System.out.println("   结论：绝对不能！接口无任何实例变量状态需要构造，纯粹是行为规范契约。");
-    }
-
-    // ================================= 辅助接口与抽象类演示 =================================
-
-    /**
-     * 演示接口：涵盖 Java 7、8、9 的完整方法体系
-     */
-    interface PaymentPlugin {
-        // 1. 全局静态常量（隐式 public static final）
-        String PLUGIN_NAME = "EnterprisePaymentPlugin";
-
-        // 2. 抽象方法（Java 1.0+）
-        void executePayment(double amount);
-
-        // 3. 默认方法（Java 8 引入）
-        default void logTransaction(String message) {
-            String logPrefix = getLogPrefix(); // 调用 Java 9 私有辅助方法
-            System.out.println("   [接口 default 方法] " + logPrefix + " - " + message);
-        }
-
-        // 4. 静态方法（Java 8 引入）
-        static void printPluginVersion() {
-            System.out.println("   [接口 static 方法] 当前插件名称: " + PLUGIN_NAME + "，版本: 3.0");
-        }
-
-        // 5. 私有方法（Java 9 引入，供 default 方法内部复用）
-        private String getLogPrefix() {
-            return "[AUDIT-LOG-" + System.currentTimeMillis() + "]";
-        }
-    }
-
-    static class FastPayPlugin implements PaymentPlugin {
-        @Override
-        public void executePayment(double amount) {
-            System.out.println("   [实现类方法] 快捷支付扣款: " + amount + " 元完成");
-        }
-    }
-
-    /**
-     * 演示抽象类：包含构造方法、成员变量、模板方法
-     */
-    static abstract class TemplateTask {
-        private String taskName; // 抽象类可以有普通私有成员变量
-
-        // 抽象类完全可以有构造函数，供子类 super() 调用
-        public TemplateTask(String taskName) {
-            this.taskName = taskName;
-            System.out.println("   [抽象父类构造方法触发] 正在初始化任务名称: " + taskName);
-        }
-
-        // 模板方法：定义执行流程
-        public void start() {
-            System.out.println("   [抽象类模板方法] 准备启动任务: " + taskName);
-            executeJob(); // 调用抽象方法
-            System.out.println("   [抽象类模板方法] 任务结束: " + taskName);
-        }
-
-        // 抽象方法：强制子类实现
-        public abstract void executeJob();
     }
 
     /**
