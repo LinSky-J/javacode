@@ -10,10 +10,11 @@ package oop.abstractinterface;
  * 9. 接口里面可以定义哪些方法?
  * 10. 抽象类可以被实例化吗?
  * 11. 接口可以包含构造函数吗?
+ * 12. 接口可以被实例化吗？
  *
  * 设计目标：
  * 遵循企业级开发规范，从 Java 8/9 接口特性演进、构造函数链调用，
- * 到抽象类匿名内部类实例化的本质，建立透彻而严密的面向对象抽象认知。
+ * 到抽象类与接口实例化底层本质，建立透彻而严密的面向对象抽象认知。
  *
  * @author InterviewGuide
  * @version 1.0
@@ -33,6 +34,7 @@ public class AbstractClassVsInterface {
         explainMethodsInInterface();
         explainCanAbstractClassBeInstantiated();
         explainCanInterfaceHaveConstructor();
+        explainCanInterfaceBeInstantiated();
 
         System.out.println("\n======================================================================");
         System.out.println("             抽象类与接口解析完毕，请细读类中源码与注释               ");
@@ -209,6 +211,59 @@ public class AbstractClassVsInterface {
          *    - 试图在接口中写 interface Foo { Foo(); } 编译器会直接报错！
          */
         System.out.println("   结论：绝对不能！接口无任何实例变量状态需要构造，纯粹是行为规范契约。");
+    }
+
+    /**
+     * 第十二部分：接口可以被实例化吗？
+     *
+     * 面试核心考点：直接实例化 vs 匿名内部类 vs Lambda 动态实现类。
+     */
+    public static void explainCanInterfaceBeInstantiated() {
+        System.out.println("\n12. 接口可以被实例化吗？");
+
+        /*
+         * 1. 标准核心结论：
+         *    - 接口【绝对不能被直接实例化】！（直接写 new PaymentPlugin() 会报编译错误：'PaymentPlugin' is abstract; cannot be instantiated）
+         *
+         * 2. 为什么接口不能被实例化？
+         *    - 构造方法缺失：接口绝对不允许定义构造函数（Constructor），根本不具备在堆内存中初始化对象实例状态的能力。
+         *    - 契约规范定位：接口定义的是行为规范与契约（like-a / can-do），不是具体的对象模板。
+         *
+         * 3. 为什么日常开发中能看到类似 "new 接口" 的写法？
+         *    - 很多初学者误以为：new PaymentPlugin() { ... } 是实例化了接口本身，这是极大的误解！
+         *    - 底层真相揭秘：
+         *      - 匿名内部类方式：Java 编译器在底层悄悄自动生成了一个实现了该接口的匿名具体子类（如 AbstractClassVsInterface$1），
+         *        并调用该匿名子类隐式生成的无参构造方法实例化了该子类对象！
+         *      - Lambda 表达式方式：Java 8 的 Lambda 底层利用 invokedynamic 指令与 LambdaMetafactory，
+         *        在运行期动态生成了一个实现了该函数式接口的内部具体类并完成实例化！
+         */
+
+        // 场景一：企业规范标准做法——通过独立的具体实现类 FastPayPlugin（位于 FastPayPlugin.java）完成实例化
+        System.out.println("   [方式一] 实例化独立的具体实现类 FastPayPlugin（推荐的企业开发模式）：");
+        PaymentPlugin concretePlugin = new FastPayPlugin();
+        concretePlugin.executePayment(999.0);
+        System.out.println("   [抓包证据] concretePlugin 堆中真实物理类名: " + concretePlugin.getClass().getName());
+
+        // 场景二：匿名内部类写法实测（探究底层伪直接实例化的本质）
+        System.out.println("\n   [方式二] 匿名内部类写法实测（探究底层伪直接实例化的本质）：");
+        PaymentPlugin anonymousPlugin = new PaymentPlugin() {
+            @Override
+            public void executePayment(double amount) {
+                System.out.println("   [匿名内部类实现] 正在执行特定通道支付，扣款: " + amount + " 元");
+            }
+        };
+        anonymousPlugin.executePayment(888.0);
+        System.out.println("   [抓包证据] anonymousPlugin 堆中真实物理类名: " + anonymousPlugin.getClass().getName() + " (编译器自动生成的匿名具体实现类！)");
+
+        // 场景三：Java 8 Lambda 表达式实测（函数式接口 SAM 特性）
+        System.out.println("\n   [方式三] Lambda 表达式写法实测（现代函数式编程模式）：");
+        PaymentPlugin lambdaPlugin = (amount) -> {
+            System.out.println("   [Lambda 表达式实现] 正在执行扫码微支付，扣款: " + amount + " 元");
+        };
+        lambdaPlugin.executePayment(666.0);
+        System.out.println("   [抓包证据] lambdaPlugin 堆中真实物理类名: " + lambdaPlugin.getClass().getName() + " (JVM 动态生成的代理实现类！)");
+
+        System.out.println("\n   总结：接口自身绝不能直接实例化；所有看似实例化的代码，本质上全都是实例化了该接口的具体实现类！");
     }
 
     /**
