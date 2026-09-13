@@ -4,9 +4,9 @@ package jvm;
  * 面试专题：JVM 本质、JDK/JRE/JVM 包含关系 与 JVM 和 Java 的解耦区别深度解析。
  *
  * 本类对应面试核心题目：
- * 1. JVM 是什么？
- * 2. JVM、JDK、JRE 三者的关系是什么？
- * 3. JVM 和 Java 有什么区别？
+ * 1. jvm是什么
+ * 2. JVM、JDK、JRE三者关系?
+ * 3. JVM 和 Java 有啥区别?
  *
  * 设计目标：
  * 建立清晰的 Java 生态体系架构视图，搞懂虚拟机的运行时职责、开发与运行环境的分界，
