@@ -18,6 +18,7 @@ package jvm;
 public class JvmConceptAndJdkJreRelationship {
 
     public static void main(String[] args) {
+        initConsoleEncoding();
         System.out.println("==================================================");
         System.out.println("     JVM 本质定义、三者层级关系与生态解耦深度解析      ");
         System.out.println("==================================================");
@@ -133,5 +134,15 @@ public class JvmConceptAndJdkJreRelationship {
          *    Java 语言成就了 JVM，而 JVM 如今超越了 Java 语言，成为了支撑整个软件工业的通用虚拟生态基石。
          */
         System.out.println("3. JVM 与 Java 区别：Java 是高级编程语言，JVM 是通用的字节码虚拟平台；JVM 完全解耦 Java，支持 Kotlin/Scala 多语言生态。");
+    }
+
+    /**
+     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
+     */
+    private static void initConsoleEncoding() {
+        try {
+            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception ignored) {
+        }
     }
 }

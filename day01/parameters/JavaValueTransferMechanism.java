@@ -19,6 +19,7 @@ package parameters;
 public class JavaValueTransferMechanism {
 
     public static void main(String[] args) {
+        initConsoleEncoding();
         System.out.println("==================================================");
         System.out.println("     Java 参数传递机制：值传递 vs 引用传递深度剖析   ");
         System.out.println("==================================================");
@@ -199,6 +200,16 @@ public class JavaValueTransferMechanism {
         @Override
         public String toString() {
             return "User{name='" + name + "', age=" + age + "}";
+        }
+    }
+
+    /**
+     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
+     */
+    private static void initConsoleEncoding() {
+        try {
+            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception ignored) {
         }
     }
 }

@@ -16,6 +16,7 @@ package execution;
 public class CompiledVsInterpretedLanguage {
 
     public static void main(String[] args) {
+        initConsoleEncoding();
         System.out.println("==================================================");
         System.out.println("        编译型语言 vs 解释型语言 本质区别解析        ");
         System.out.println("==================================================");
@@ -123,5 +124,15 @@ public class CompiledVsInterpretedLanguage {
          *    - 理论上，C 语言也可以写一个 C 解释器逐行执行，Python 也可以通过 Cython 或 Nuitka 编译为机器码。
          */
         System.out.println("4. 现代技术演进：现代主流语言已突破纯编译/纯解释边界，普遍引入字节码中间层与 JIT 即时编译混合机制。");
+    }
+
+    /**
+     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
+     */
+    private static void initConsoleEncoding() {
+        try {
+            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception ignored) {
+        }
     }
 }

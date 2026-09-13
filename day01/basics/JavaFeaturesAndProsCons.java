@@ -42,16 +42,18 @@ public class JavaFeaturesAndProsCons {
          * 1. 核心概念：封装（Encapsulation）、继承（Inheritance）、多态（Polymorphism）。
          * 2. 设计思想：以对象为基本单元，模拟现实世界中的实体与交互。
          * 3. 对比说明：纯面向对象语言（如Smalltalk）连基本类型都是对象；
-         *    Java保留了8种基本数据类型（byte, short, int, long, float, double, char, boolean）
-         *    是为了平衡性能与开发开销，但在Java 5引入自动装箱与拆箱后，整体体验高度统一。
+         * Java保留了8种基本数据类型（byte, short, int, long, float, double, char, boolean）
+         * 是为了平衡性能与开发开销，但在Java 5引入自动装箱与拆箱后，整体体验高度统一。
          */
+        // 1.java 是面向对象的一种语言，万物皆对象（OOP）
 
         /*
          * 特点二：平台无关性 / 跨平台（Platform Independence）
          * 1. 核心口号：Write Once, Run Anywhere（一次编写，到处运行）。
          * 2. 底层支柱：依赖 Java 虚拟机（JVM）。Java源码被编译为通用的字节码（.class），
-         *    无论在 Windows、Linux 还是 macOS，只要安装了对应平台的 JVM，就可以直接执行该字节码。
+         * 无论在 Windows、Linux 还是 macOS，只要安装了对应平台的 JVM，就可以直接执行该字节码。
          */
+        // 2.跨平台性（编译为字节码.class,使用各个平台对应的jvm进行运行）
 
         /*
          * 特点三：健壮性与安全性（Robust & Secure）
@@ -61,6 +63,7 @@ public class JavaFeaturesAndProsCons {
          * 4. 完善的异常处理机制：提供 try-catch-finally 体系与受检异常机制，强制开发者处理潜在故障。
          * 5. 沙箱安全模型与字节码校验：类加载时进行严格的字节码验证（Bytecode Verifier），防止恶意代码破坏内存。
          */
+        // 3.内存管理（有GC可以进行自动垃圾回收，）
 
         /*
          * 特点四：语言级内置多线程支持（Multithreaded）
@@ -73,8 +76,8 @@ public class JavaFeaturesAndProsCons {
          * 特点五：编译与解释并存的高性能（High Performance via JIT）
          * 1. 早期 Java 纯解释执行，速度较慢；
          * 2. 现代 HotSpot JVM 引入即时编译器（JIT - Just-In-Time Compiler），
-         *    运行时将高频执行的热点代码直接编译成本地 CPU 机器码，并结合逃逸分析、方法内联等激进优化，
-         *    使得其长时运行性能极其逼近 C/C++。
+         * 运行时将高频执行的热点代码直接编译成本地 CPU 机器码，并结合逃逸分析、方法内联等激进优化，
+         * 使得其长时运行性能极其逼近 C/C++。
          */
 
         /*
@@ -111,7 +114,7 @@ public class JavaFeaturesAndProsCons {
          * 优势三：极其优秀且成熟的长期性能与调优工具
          * 1. HotSpot 虚拟机经过三十余年的工业级打磨，具备全球最先进的垃圾收集器（从 CMS、G1 到 ZGC、Shenandoah）。
          * 2. 拥有极其完善的生产故障排查工具链：jstack、jmap、jstat、Arthas、JFR（Java Flight Recorder）等，
-         *    在线上出现内存溢出、死锁或 CPU 飙高时，能够在不停机或低损耗下精准定位问题。
+         * 在线上出现内存溢出、死锁或 CPU 飙高时，能够在不停机或低损耗下精准定位问题。
          */
 
         /*
@@ -133,7 +136,7 @@ public class JavaFeaturesAndProsCons {
          * 劣势一：内存占用偏高（Memory Overhead）
          * 1. JVM 自身运行需要加载类、维护元空间（Metaspace）、堆内存结构以及 JIT 编译缓存代码。
          * 2. Java 对象头结构：在 64 位机器上，每个 Java 对象即使不包含任何业务字段，
-         *    也有约 8~16 字节的对象头开销（Mark Word + Klass Pointer）。
+         * 也有约 8~16 字节的对象头开销（Mark Word + Klass Pointer）。
          * 3. 与 C/C++、Go、Rust 相比，在同样的数据存储场景下，Java 进程占用的物理内存通常要大得多。
          */
 
@@ -148,14 +151,14 @@ public class JavaFeaturesAndProsCons {
          * 劣势三：语法相对冗长，开发样板代码较多
          * 1. 相比于 Python、Go、Kotlin，传统 Java 编写业务逻辑需要编写大量的类定义、getter/setter 等模板代码。
          * 2. 改进现状：虽然 Java 引入了 Lombok 注解处理器，以及 Java 14+ 引入了 record 记录类、var 局部变量类型推断，
-         *    但整体表达力的精简度依然逊色于部分现代动态或新兴静态语言。
+         * 但整体表达力的精简度依然逊色于部分现代动态或新兴静态语言。
          */
 
         /*
          * 劣势四：由于历史包袱沉重，部分老旧设计难以根除
          * 1. 为了保持严格的向下兼容，Java 很难彻底废弃有设计缺陷的旧类库（如早期的 Date/Calendar、Vector/Hashtable）。
          * 2. 泛型的伪泛型（类型擦除）：Java 的泛型只存在于编译期，运行期类型被擦除，导致无法直接 new T()、
-         *    无法创建泛型数组，且泛型不能直接使用基本数据类型（必须使用包装类，带来装箱开销）。
+         * 无法创建泛型数组，且泛型不能直接使用基本数据类型（必须使用包装类，带来装箱开销）。
          */
         System.out.println("3. Java 现实劣势已梳理：内存开销偏大、启动及预热较慢、语法较为冗长、类型擦除等历史设计包袱。");
     }
