@@ -1,4 +1,4 @@
-package oop;
+package oop.features;
 
 /**
  * 动物抽象基类：专门用于演示面向对象三大核心特性之【继承（Inheritance）】与【多态（Polymorphism）】。

@@ -1,4 +1,4 @@
-package oop;
+package oop.staticinner;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

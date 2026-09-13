@@ -1,4 +1,4 @@
-package oop;
+package oop.features;
 
 /**
  * 支付契约接口：专门用于演示【多态解决了什么问题】。

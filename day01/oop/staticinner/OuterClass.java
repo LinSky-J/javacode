@@ -1,4 +1,4 @@
-package oop;
+package oop.staticinner;
 
 /**
  * 外部类宿主实体：专门用于演示【非静态内部类和静态内部类的区别】以及【底层编译器如何通过 this$0 实现外部访问】。

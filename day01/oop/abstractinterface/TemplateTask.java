@@ -1,4 +1,4 @@
-package oop;
+package oop.abstractinterface;
 
 /**
  * 任务调度抽象模板基类：专门用于演示抽象类的语法特性与设计模式（模板方法模式）。

@@ -1,4 +1,4 @@
-package oop;
+package oop.abstractinterface;
 
 /**
  * 演示现代接口方法演进体系的支付插件契约接口。

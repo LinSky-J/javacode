@@ -1,4 +1,4 @@
-package oop;
+package oop.abstractinterface;
 
 /**
  * 快捷支付插件实现类。

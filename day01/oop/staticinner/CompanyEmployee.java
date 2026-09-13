@@ -1,4 +1,4 @@
-package oop;
+package oop.staticinner;
 
 /**
  * 企业员工实体类：专门用于演示【Java 中的静态变量和静态方法】。

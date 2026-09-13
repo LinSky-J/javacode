@@ -1,4 +1,4 @@
-package oop;
+package oop.features;
 
 /**
  * 银行账户实体类：专门用于演示面向对象三大核心特性之一【封装（Encapsulation）】。

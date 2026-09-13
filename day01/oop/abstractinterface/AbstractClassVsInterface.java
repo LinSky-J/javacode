@@ -1,4 +1,4 @@
-package oop;
+package oop.abstractinterface;
 
 /**
  * 面试专题：抽象类与接口深度辨析、方法演进与实例化底层原理。

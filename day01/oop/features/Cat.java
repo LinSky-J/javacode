@@ -1,4 +1,4 @@
-package oop;
+package oop.features;
 
 /**
  * 具体动物子类：小猫。

@@ -1,4 +1,4 @@
-package oop;
+package oop.features;
 
 /**
  * 面试专题：面向对象核心本质、三大特性、多态深度剖析与设计原则。
