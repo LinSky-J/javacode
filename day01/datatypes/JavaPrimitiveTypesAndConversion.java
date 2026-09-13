@@ -47,27 +47,59 @@ public class JavaPrimitiveTypesAndConversion {
      * 面试核心考点：4 种整数型、2 种浮点型、1 种字符型、1 种布尔型。
      */
     public static void explainEightPrimitiveTypes() {
+        System.out.println("1. 八种基本数据类型代码实测与全景属性：");
+
         /*
-         * Java 中的 8 种基本数据类型（Primitive Data Types）：
-         *
-         * 1. 整数类型（4 种）：
-         *    - byte：8 位（1 字节），取值范围 -128 到 127。常用于底层网络 I/O、二进制文件流传输。
-         *    - short：16 位（2 字节），取值范围 -32768 到 32767。现代开发中极少直接使用。
-         *    - int：32 位（4 字节），取值范围约 -21.47 亿 到 21.47 亿。Java 中整数的【默认类型】。
-         *    - long：64 位（8 字节），取值范围约 -922 亿亿 到 922 亿亿。赋值时需加后缀 'L'（推荐大写）。
-         *
-         * 2. 浮点类型（2 种）：
-         *    - float：32 位（4 字节），单精度浮点数，符合 IEEE 754 标准，赋值时需加后缀 'F' 或 'f'。
-         *    - double：64 位（8 字节），双精度浮点数，Java 中浮点数的【默认类型】。
-         *
-         * 3. 字符类型（1 种）：
-         *    - char：16 位（2 字节），采用 UTF-16 编码表示 Unicode 字符，取值范围 0 到 65535（无符号）。
-         *
-         * 4. 布尔类型（1 种）：
-         *    - boolean：逻辑值，仅有两个取值 true 和 false。
-         *      注：JVM 规范中没有明确规定其具体大小，编译后在 JVM 内部通常用 4 字节的 int 或 1 字节的 byte 存储。
+         * 1. 整数类型声明与初始化（4 种）：
          */
-        System.out.println("1. 八种基本数据类型：byte(1B), short(2B), int(4B), long(8B), float(4B), double(8B), char(2B), boolean。");
+        byte byteVal = 100;
+        short shortVal = 10000;
+        int intVal = 100000;
+        long longVal = 10000000000L; // 超出 int 范围必须显式加 'L' 后缀
+
+        /*
+         * 2. 浮点类型声明与初始化（2 种）：
+         */
+        float floatVal = 3.14F; // 浮点字面量默认是 double，赋值给 float 必须显式加 'F' 后缀
+        double doubleVal = 3.1415926535; // 浮点默认类型
+
+        /*
+         * 3. 字符类型声明与初始化（1 种）：
+         */
+        char charVal = 'A'; // ASCII 字符
+        char chineseChar = '中'; // Unicode 中文字符
+
+        /*
+         * 4. 布尔类型声明与初始化（1 种）：
+         */
+        boolean boolVal = true;
+
+        // 格式化输出 8 种类型的名称、位数、字节数、极值范围与实际取值
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.printf("%-8s %-10s %-10s %-25s %-25s %s%n", "类型", "占用位数", "占用字节", "最小值", "最大值", "代码示例值");
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.printf("%-10s %-12d %-10d %-27d %-27d %d%n", "byte", Byte.SIZE, Byte.BYTES, Byte.MIN_VALUE, Byte.MAX_VALUE, byteVal);
+        System.out.printf("%-10s %-12d %-10d %-27d %-27d %d%n", "short", Short.SIZE, Short.BYTES, Short.MIN_VALUE, Short.MAX_VALUE, shortVal);
+        System.out.printf("%-10s %-12d %-10d %-27d %-27d %d%n", "int", Integer.SIZE, Integer.BYTES, Integer.MIN_VALUE, Integer.MAX_VALUE, intVal);
+        System.out.printf("%-10s %-12d %-10d %-27d %-27d %d%n", "long", Long.SIZE, Long.BYTES, Long.MIN_VALUE, Long.MAX_VALUE, longVal);
+        System.out.printf("%-10s %-12d %-10d %-27e %-27e %f%n", "float", Float.SIZE, Float.BYTES, Float.MIN_VALUE, Float.MAX_VALUE, floatVal);
+        System.out.printf("%-10s %-12d %-10d %-27e %-27e %f%n", "double", Double.SIZE, Double.BYTES, Double.MIN_VALUE, Double.MAX_VALUE, doubleVal);
+        System.out.printf("%-10s %-12d %-10d %-27d %-27d '%c'(Unicode:%d)%n", "char", Character.SIZE, Character.BYTES, (int) Character.MIN_VALUE, (int) Character.MAX_VALUE, chineseChar, (int) chineseChar);
+        System.out.printf("%-10s %-12s %-10s %-27s %-27s %b%n", "boolean", "依赖JVM", "通常1B/4B", "false", "true", boolVal);
+        System.out.println("---------------------------------------------------------------------------------------------");
+
+        // 核心代码演示一：byte 极值越界环绕
+        byte maxByte = 127;
+        maxByte++;
+        System.out.println("   [byte 溢出代码实测] byte 最大值 127 加 1 触发补码溢出，变为: " + maxByte);
+
+        // 核心代码演示二：char 的字符与数字本质互转
+        int charAscii = charVal;
+        char nextLetter = (char) (charVal + 1);
+        System.out.println("   [char 运算代码实测] char 'A' 的底层 ASCII 码为: " + charAscii + "，加 1 后的字符是: '" + nextLetter + "'");
+
+        // 核心代码演示三：浮点数后缀规范
+        System.out.println("   [字面量规范代码说明] float 必须带 F (如 " + floatVal + "F)，超出 int 范围的 long 必须带 L (如 " + longVal + "L)");
     }
 
     /**
@@ -80,16 +112,19 @@ public class JavaPrimitiveTypesAndConversion {
          * 1. int 类型：
          *    - 占用：32 位（bits），即 4 字节（Bytes）。
          *    - 计算公式：32 bits / 8 = 4 Bytes。
-         *    - 最小值：Integer.MIN_VALUE = -2^31 (-2,147,483,648)
-         *    - 最大值：Integer.MAX_VALUE = 2^31 - 1 (2,147,483,647)
          *
          * 2. long 类型：
          *    - 占用：64 位（bits），即 8 字节（Bytes）。
          *    - 计算公式：64 bits / 8 = 8 Bytes。
-         *    - 最小值：Long.MIN_VALUE = -2^63 (-9,223,372,036,854,775,808)
-         *    - 最大值：Long.MAX_VALUE = 2^63 - 1 (9,223,372,036,854,775,807)
          */
-        System.out.println("2. 位与字节大小：int 占 32 位（4 字节）；long 占 64 位（8 字节）。");
+        int bitOfInt = Integer.SIZE;
+        int byteOfInt = Integer.BYTES;
+        int bitOfLong = Long.SIZE;
+        int byteOfLong = Long.BYTES;
+
+        System.out.println("\n2. int 和 long 位与字节代码实测获取：");
+        System.out.println("   [int]  位数: " + bitOfInt + " 位, 字节数: " + byteOfInt + " 字节, 取值范围: " + Integer.MIN_VALUE + " ~ " + Integer.MAX_VALUE);
+        System.out.println("   [long] 位数: " + bitOfLong + " 位, 字节数: " + byteOfLong + " 字节, 取值范围: " + Long.MIN_VALUE + " ~ " + Long.MAX_VALUE);
     }
 
     /**
@@ -126,30 +161,35 @@ public class JavaPrimitiveTypesAndConversion {
      * 面试核心考点：系统化归纳 Java 的所有类型转换维度。
      */
     public static void explainAllConversionModes() {
-        /*
-         * Java 中主流的数据类型转换方式主要有以下五种：
-         *
-         * 方式一：自动类型转换（隐式转换）
-         *   - 触发条件：从低精度向高精度、从小范围向大范围转换。
-         *   - 转换链路：byte -> short/char -> int -> long -> float -> double。
-         *
-         * 方式二：强制类型转换（显式转换）
-         *   - 触发条件：从大范围向小范围强转。
-         *   - 语法：(目标类型) 变量名。如 int x = (int) 3.14;。
-         *
-         * 方式三：包装类与基本类型互转（自动装箱与拆箱）
-         *   - 装箱：int -> Integer（底层调用 Integer.valueOf()）。
-         *   - 拆箱：Integer -> int（底层调用 integer.intValue()）。
-         *
-         * 方式四：字符串与基本数据类型互转
-         *   - 基本类型转 String：String.valueOf(100) 或 "" + 100。
-         *   - String 转基本类型：Integer.parseInt("123")、Double.parseDouble("3.14")。
-         *
-         * 方式五：引用类型多态转换（向上转型与向下转型）
-         *   - 向上转型：Child c = new Child(); Parent p = c;（自动安全）。
-         *   - 向下转型：Child c = (Child) p;（需结合 instanceof 防止 ClassCastException）。
-         */
-        System.out.println("4. 转换方式汇总：自动隐式转换、强制显式转换、自动装箱/拆箱、字符串/数值互转、父子类多态引用转换。");
+        System.out.println("4. 数据类型五大转换方式代码实测：");
+
+        // 方式一：自动类型转换（小范围 -> 大范围，安全无损）
+        byte b = 10;
+        int i = b; // 自动将 1 字节扩展为 4 字节
+        double d = i; // 自动将整型转换为浮点型
+        System.out.println("   方式一 [自动隐式转换] byte(10) -> int(" + i + ") -> double(" + d + ")");
+
+        // 方式二：强制类型转换（大范围 -> 小范围，可能发生截断）
+        double price = 99.99;
+        int intPrice = (int) price; // 强转直接丢弃小数部分
+        System.out.println("   方式二 [强制显式转换] double(99.99) -> (int) price -> " + intPrice + " (小数截断)");
+
+        // 方式三：包装类装箱与拆箱
+        Integer boxed = Integer.valueOf(66); // 装箱
+        int unboxed = boxed.intValue(); // 拆箱
+        System.out.println("   方式三 [包装类装箱拆箱] int 66 -> Integer.valueOf() -> intValue() -> " + unboxed);
+
+        // 方式四：字符串与数值互相转换
+        String strVal = String.valueOf(12345);
+        int parsedInt = Integer.parseInt(strVal);
+        System.out.println("   方式四 [字符串数值互转] 12345 -> String(\"" + strVal + "\") -> Integer.parseInt() -> " + parsedInt);
+
+        // 方式五：多态引用类型向上与向下转型
+        Object polyObj = "Java 多态转换";
+        if (polyObj instanceof String) {
+            String strObj = (String) polyObj; // 向下转型
+            System.out.println("   方式五 [多态向上向下转型] Object 引用 -> (String) 强转向下转型 -> \"" + strObj + "\"");
+        }
     }
 
     /**
