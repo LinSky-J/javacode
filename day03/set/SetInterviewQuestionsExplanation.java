@@ -34,6 +34,7 @@ public class SetInterviewQuestionsExplanation {
     }
 
     private static void explainListVsSet() {
+        //1. java集合中List和Set的区别是什么？
         System.out.println("【理论解答】");
         System.out.println("1. 重复性：List 允许重复元素，允许多个 null；Set 元素唯一不重复，HashSet/LinkedHashSet 最多一个 null，TreeSet 禁存 null。");
         System.out.println("2. 顺序性：List 保证插入顺序；Set 总体无序（HashSet 无序，TreeSet 大小排序，LinkedHashSet 记录插入顺序）。");
@@ -45,6 +46,7 @@ public class SetInterviewQuestionsExplanation {
         ListVsSetComparison.demonstrateListVsSet();
     }
 
+    //2.如何对Set进行排序
     private static void explainSetSorting() {
         System.out.println("【理论解答】");
         System.out.println("对 Set 集合排序有四大核心策略：");
@@ -59,6 +61,7 @@ public class SetInterviewQuestionsExplanation {
         SetSortingStrategies.demonstrateSetSorting();
     }
 
+    //Set集合有什么特点？如何事项key无重复的？
     private static void explainSetDeduplication() {
         System.out.println("【理论解答】");
         System.out.println("1. Set 集合的核心特点：元素唯一不可重复、无整数下标索引、底层依托 Map 键集合实现。");
@@ -80,7 +83,7 @@ public class SetInterviewQuestionsExplanation {
         System.out.println();
         SetDeduplicationPrinciple.demonstrateDeduplicationMechanisms();
     }
-
+    //4.有序的Set是什么？记录插入顺序的结合是什么？
     private static void explainOrderedAndInsertionOrderSets() {
         System.out.println("【理论解答】");
         System.out.println("必须区分【大小排序顺序（Sorted Order）】与【插入物理顺序（Insertion Order）】：");
