@@ -1,7 +1,5 @@
 package keywords.statickeyword;
 
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 // 演示 static import 静态导包：直接导入 Math 类的静态常量与静态方法
 import static java.lang.Math.PI;
@@ -26,7 +24,6 @@ import static java.lang.Math.sqrt;
 public class JavaStaticKeywordMechanism {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("                 Java 中 static 关键字核心作用深度解析                ");
@@ -116,15 +113,5 @@ public class JavaStaticKeywordMechanism {
         System.out.println("\n--- 维度五：static import 静态导入语法实测 ---");
         double circleArea = PI * sqrt(16.0); // 直接使用 PI 和 sqrt，无需 Math.PI 和 Math.sqrt
         System.out.println("   静态导入 Math 成员计算: PI * sqrt(16.0) = " + circleArea);
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

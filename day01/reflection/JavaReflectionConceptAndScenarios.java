@@ -1,12 +1,10 @@
 package reflection;
 
-import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：Java 反射机制、运行期类型透视与企业级框架应用实战。
@@ -21,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 public class JavaReflectionConceptAndScenarios {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("           Java 反射底层机制、运行时动态操作与框架应用全景解析         ");
@@ -179,15 +176,5 @@ public class JavaReflectionConceptAndScenarios {
          */
         System.out.println("\n--- 场景五：单元测试与 Mock 框架（JUnit、Mockito 私有属性注入） ---");
         System.out.println("   实现：JUnit 测试运行器反射检索带 @Test 的方法并触发；Mockito 通过反射替换待测对象内部的私有依赖。");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

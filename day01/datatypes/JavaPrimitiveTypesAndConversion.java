@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 public class JavaPrimitiveTypesAndConversion {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("       Java 八种基本数据类型、类型转换与浮点运算深度解析报告         ");
@@ -270,15 +269,5 @@ public class JavaPrimitiveTypesAndConversion {
          */
         System.out.println("致命错误写法演示: new BigDecimal(0.1) = " + new BigDecimal(0.1));
         System.out.println("标准规范正确写法: BigDecimal.valueOf(0.1) = " + BigDecimal.valueOf(0.1));
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

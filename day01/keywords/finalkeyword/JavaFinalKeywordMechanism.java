@@ -1,7 +1,5 @@
 package keywords.finalkeyword;
 
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：Java 中 final 关键字深度解析与底层原理解析。
@@ -35,7 +33,6 @@ public class JavaFinalKeywordMechanism {
     }
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("                  Java 中 final 关键字核心作用深度解析                ");
@@ -146,15 +143,5 @@ public class JavaFinalKeywordMechanism {
          */
         System.out.println("\n--- 维度六：JMM 内存模型中 final 的安全发布保障 ---");
         System.out.println("   JMM 底层插入 StoreStore 内存屏障，彻底禁止构造函数内 final 域写操作重排序到构造函数之外，确保并发安全发布。");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

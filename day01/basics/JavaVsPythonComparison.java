@@ -16,7 +16,6 @@ package basics;
 public class JavaVsPythonComparison {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
         System.out.println("==================================================");
         System.out.println("          Java 与 Python 核心特性深度对比报告       ");
         System.out.println("==================================================");
@@ -142,15 +141,5 @@ public class JavaVsPythonComparison {
          *    - 自动化测试与系统运维脚本编写。
          */
         System.out.println("5. 应用场景：Java 统治企业级高并发后端与大数据生态；Python 统治人工智能、数据科学与自动化领域。");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

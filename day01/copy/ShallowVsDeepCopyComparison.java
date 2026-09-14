@@ -1,7 +1,5 @@
 package copy;
 
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：深拷贝和浅拷贝问题深度剖析与三大实现方案实战。
@@ -25,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 public class ShallowVsDeepCopyComparison {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("             深拷贝 vs 浅拷贝 核心机制、三大方案与内存地址实测        ");
@@ -177,15 +174,5 @@ public class ShallowVsDeepCopyComparison {
         System.out.println("\n--- [面试必考延伸警示] ---");
         System.out.println("   切记：Spring 和 Apache 的 BeanUtils.copyProperties() 全部都是【浅拷贝】！");
         System.out.println("   在涉及嵌套集合或引用对象的多线程/异步处理场景中，必须使用上述三种深拷贝方案进行安全防线隔离。");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

@@ -22,7 +22,6 @@ package oop.abstractinterface;
 public class AbstractClassVsInterface {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("         抽象类 vs 接口 全维度对比、方法体系与实例化深度解析          ");
@@ -264,15 +263,5 @@ public class AbstractClassVsInterface {
         System.out.println("   [抓包证据] lambdaPlugin 堆中真实物理类名: " + lambdaPlugin.getClass().getName() + " (JVM 动态生成的代理实现类！)");
 
         System.out.println("\n   总结：接口自身绝不能直接实例化；所有看似实例化的代码，本质上全都是实例化了该接口的具体实现类！");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

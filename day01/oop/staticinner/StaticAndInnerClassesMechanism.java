@@ -21,7 +21,6 @@ import java.lang.reflect.Field;
 public class StaticAndInnerClassesMechanism {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("     Java 静态机制、内部类差异与编译器 this$0 隐式传参底层原理解析     ");
@@ -161,14 +160,4 @@ public class StaticAndInnerClassesMechanism {
     }
 
 
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
-    }
 }

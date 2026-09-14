@@ -20,7 +20,6 @@ package oop.features;
 public class OopFeaturesAndPolymorphism {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("        面向对象三大特性、多态本质、设计原则与重载重写深度解析        ");
@@ -218,14 +217,4 @@ public class OopFeaturesAndPolymorphism {
     }
 
 
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
-    }
 }

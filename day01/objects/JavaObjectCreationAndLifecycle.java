@@ -4,11 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：Java 对象创建全方式、对象生命周期与垃圾回收判定、私有对象与属性破解实战。
@@ -25,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 public class JavaObjectCreationAndLifecycle {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("          Java 对象创建方式全景、垃圾回收生命周期与私有获取实战       ");
@@ -213,15 +210,5 @@ public class JavaObjectCreationAndLifecycle {
         }
 
         System.out.println("\n   总结：获取私有对象的核心武器是 Java 反射中的 getDeclaredXxx() + setAccessible(true) 机制！");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

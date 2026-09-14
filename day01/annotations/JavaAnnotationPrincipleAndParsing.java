@@ -1,11 +1,9 @@
 package annotations;
 
-import java.io.PrintStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：Java 注解底层原理、JVM 动态代理实现真相与注解作用域深度解析。
@@ -21,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 public class JavaAnnotationPrincipleAndParsing {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("          Java 注解本质、动态代理底层解析与作用域全景解析             ");
@@ -158,16 +155,6 @@ public class JavaAnnotationPrincipleAndParsing {
             System.out.println("   字段 " + field.getName() + " 映射物理列: " + tableField.columnName() + " | 是否为主键: " + tableField.isPrimaryKey());
         } catch (Exception e) {
             System.out.println("   解析字段注解失败: " + e.getMessage());
-        }
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
         }
     }
 }

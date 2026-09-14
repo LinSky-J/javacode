@@ -1,8 +1,6 @@
 package generics;
 
-import java.io.PrintStream;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +29,6 @@ import java.util.List;
 public class JavaGenericsConceptAndErasure {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("            Java 泛型机制全景、类型擦除与反射实测深度剖析              ");
@@ -180,15 +177,5 @@ public class JavaGenericsConceptAndErasure {
         list.add(100);
         list.add(200);
         // Integer n = list.get(0); // 编译报错！读取出来只能是 Object，无法保证为 Integer
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

@@ -38,7 +38,6 @@ package parameters;
 public class TruePassByReferenceExplanation {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("           真正的引用传递（Pass by Reference）全景解析与实证          ");
@@ -202,16 +201,6 @@ public class TruePassByReferenceExplanation {
         @Override
         public String toString() {
             return "User{name='" + name + "', age=" + age + "}";
-        }
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
         }
     }
 }

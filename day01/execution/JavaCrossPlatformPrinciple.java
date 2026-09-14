@@ -17,7 +17,6 @@ package execution;
 public class JavaCrossPlatformPrinciple {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
         System.out.println("==================================================");
         System.out.println("     Java 跨平台原理 与 混合编译执行机制深度解析     ");
         System.out.println("==================================================");
@@ -111,15 +110,5 @@ public class JavaCrossPlatformPrinciple {
          * JVM 还支持【逆优化（Deoptimization）】，优雅退回解释执行，确保系统绝对安全稳定。
          */
         System.out.println("3. 架构演进：HotSpot 采用分层编译，结合 C1（快速编译）与 C2（激进深度优化），并支持运行时逆优化回退。");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

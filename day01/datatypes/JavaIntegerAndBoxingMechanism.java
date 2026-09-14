@@ -20,7 +20,6 @@ package datatypes;
 public class JavaIntegerAndBoxingMechanism {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("      Java 包装类、装箱拆箱、Integer vs int 与缓存机制深度解析报告      ");
@@ -208,15 +207,5 @@ public class JavaIntegerAndBoxingMechanism {
          */
         System.out.println("\n【阿里巴巴开发规范金科玉律】：");
         System.out.println("所有整型包装类对象之间值的比较，全部使用 equals 方法比较，严禁直接使用 '==' 比较！");
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
-        }
     }
 }

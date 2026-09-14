@@ -2,8 +2,6 @@ package exceptions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 面试专题：Java 异常体系全景架构、异常处理五大机制、异常转译、执行流程与 finally return 深度解析。
@@ -22,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 public class JavaExceptionHierarchyAndHandling {
 
     public static void main(String[] args) {
-        initConsoleEncoding();
 
         System.out.println("======================================================================");
         System.out.println("        Java 异常体系、处理机制、throws 辨析与 finally return 实测     ");
@@ -372,16 +369,6 @@ public class JavaExceptionHierarchyAndHandling {
     private static void deductAccountBalance(double amount) {
         if (amount <= 0) {
             throw new BusinessException(100101, "扣款金额非法，金额必须大于 0！");
-        }
-    }
-
-    /**
-     * 初始化控制台字符编码，解决 Windows 环境终端输出中文乱码的问题。
-     */
-    private static void initConsoleEncoding() {
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        } catch (Exception ignored) {
         }
     }
 }
