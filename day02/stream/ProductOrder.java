@@ -8,11 +8,15 @@ package stream;
  * @version 1.0
  */
 public class ProductOrder {
-
+    //订单
     private final String orderId;
+    //库存
     private final String category;
+    //价格
     private final double price;
+    //质量
     private final int quantity;
+    //支付状态
     private final String status; // "PAID", "UNPAID", "CANCELLED"
 
     public ProductOrder(String orderId, String category, double price, int quantity, String status) {
