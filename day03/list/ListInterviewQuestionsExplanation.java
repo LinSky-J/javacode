@@ -68,6 +68,7 @@ public class ListInterviewQuestionsExplanation {
     }
 
     private static void explainListImplementationsAndComparison() {
+        //1.java里面的list的几种实现，几种实现有什么不同
         System.out.println("【理论解答】");
         System.out.println("1. List 的主流实现类及区别：");
         System.out.println("   - ArrayList：底层 Object[] 动态数组。连续内存，随机访问 O(1)，中间插入删除 O(n)。非线程安全。");
@@ -90,6 +91,7 @@ public class ListInterviewQuestionsExplanation {
         ListImplementationsComparison.demonstrateArrayListVsVector();
     }
 
+    //list可以一遍遍历一遍修改元素吗？
     private static void explainTraversalModification() {
         System.out.println("【理论解答】");
         System.out.println("必须区分【修改元素内容】与【结构性修改（增/删）】：");
@@ -103,6 +105,7 @@ public class ListInterviewQuestionsExplanation {
         ListImplementationsComparison.demonstrateTraversalModification();
     }
 
+    //list如果快速删除某个指定元素的下标
     private static void explainFastDeleteByIndex() {
         System.out.println("【理论解答】");
         System.out.println("1. 常规删除方式（保持原有元素顺序）：");
@@ -117,6 +120,7 @@ public class ListInterviewQuestionsExplanation {
         ArrayListInternalsAndGrowth.demonstrateFastDeleteByIndex();
     }
 
+    //为什么ArrayList不是线程安全的，具体来说是哪里不安全？
     private static void explainArrayListThreadSafety() {
         System.out.println("【理论解答】");
         System.out.println("1. 为什么 ArrayList 不是线程安全的？具体哪里不安全？");
@@ -135,6 +139,7 @@ public class ListInterviewQuestionsExplanation {
         ArrayListConcurrencyUnsafeDemo.demonstrateThreadSafeSolutions();
     }
 
+    //arrayList的扩容机制？
     private static void explainArrayListGrowth() {
         System.out.println("【理论解答】");
         System.out.println("ArrayList 扩容机制核心步骤（JDK 1.8+）：");
@@ -150,7 +155,7 @@ public class ListInterviewQuestionsExplanation {
         System.out.println();
         ArrayListInternalsAndGrowth.demonstrateGrowthMechanism();
     }
-
+    //线程安全的List CopyOnWritrArrayList()是如何实现线程安全的？
     private static void explainCopyOnWriteArrayList() {
         System.out.println("【理论解答】");
         System.out.println("CopyOnWriteArrayList 线程安全实现原理：");
