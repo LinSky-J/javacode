@@ -1,4 +1,4 @@
-package day02.java21;
+package java21;
 
 /**
  * Java 21 虚拟线程（Virtual Threads - Project Loom）底层模型与架构演进分析。

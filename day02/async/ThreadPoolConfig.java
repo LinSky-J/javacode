@@ -1,4 +1,4 @@
-package day02.async;
+package async;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;

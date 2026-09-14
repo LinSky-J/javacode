@@ -1,4 +1,4 @@
-package day02.stream;
+package stream;
 
 import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;

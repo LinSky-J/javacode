@@ -1,4 +1,4 @@
-package day02.java8;
+package java8;
 
 /**
  * 自定义计算函数式接口。

@@ -1,4 +1,4 @@
-package day02.async;
+package async;
 
 /**
  * 远程微服务接口调用模拟类。

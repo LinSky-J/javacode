@@ -1,4 +1,4 @@
-package day02.stream;
+package stream;
 
 import java.util.ArrayList;
 import java.util.Collections;

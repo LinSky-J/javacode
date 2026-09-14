@@ -1,4 +1,4 @@
-package day02.java8;
+package java8;
 
 /**
  * 订单校验函数式接口。

@@ -1,4 +1,4 @@
-package day02.java21;
+package java21;
 
 /**
  * 面试专题：Java 21 长期支持版（LTS）划时代核心新特性深度全景剖析。

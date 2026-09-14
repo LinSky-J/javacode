@@ -1,4 +1,4 @@
-package day02.stream;
+package stream;
 
 /**
  * 电商商品订单实体类。
