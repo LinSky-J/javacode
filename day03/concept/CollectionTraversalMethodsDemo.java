@@ -66,6 +66,7 @@ public class CollectionTraversalMethodsDemo {
 
         // 3. 基础 Iterator
         System.out.print("3. Iterator 迭代器: ");
+        Iterator<String> it = list.iterator();
         Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
             System.out.print(iterator.next() + " ");

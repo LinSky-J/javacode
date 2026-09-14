@@ -63,6 +63,7 @@ public class ThreadSafeCollectionsExplorer {
         legacyTable.put("k1", "v1");
         Vector<Integer> legacyVector = new Vector<>();
         legacyVector.add(100);
+        //锁的粒度太粗了，导致并发性不高
         System.out.println("1. 第一代遗留同步类（方法级 synchronized）: Hashtable size=" + legacyTable.size() + ", Vector size=" + legacyVector.size());
 
         // 2. 第二代：Collections 装饰器包装

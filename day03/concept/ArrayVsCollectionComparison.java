@@ -44,6 +44,8 @@ public class ArrayVsCollectionComparison {
         int[] primitiveArray = new int[]{10, 20, 30};
         System.out.println("1. 数组直接存储基本类型 int，无对象头与装箱开销，长度固定: " + primitiveArray.length);
 
+        //
+        double[] d1 = {10.1,20.2};
         // 集合只能存储引用对象，自动装箱为 Integer
         List<Integer> boxedList = new ArrayList<>();
         boxedList.add(10); // 自动装箱 Integer.valueOf(10)

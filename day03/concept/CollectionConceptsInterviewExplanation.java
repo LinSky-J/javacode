@@ -135,6 +135,7 @@ public class CollectionConceptsInterviewExplanation {
     /**
      * 问题 5 深度解析
      */
+    //集合遍历的方法有哪些
     private static void explainCollectionTraversalMethods() {
         System.out.println("【理论解答】");
         System.out.println("1. 集合遍历的 6 种方式：");

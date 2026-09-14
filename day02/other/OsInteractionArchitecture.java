@@ -45,6 +45,7 @@ public class OsInteractionArchitecture {
 
         // 1. 获取当前 Java 进程在操作系统中的唯一 PID
         String processName = ManagementFactory.getRuntimeMXBean().getName();
+        String name = ManagementFactory.getOperatingSystemMXBean().getName();
         String pid = processName.split("@")[0];
         System.out.println("1. 操作系统进程 ID (PID): " + pid);
 
