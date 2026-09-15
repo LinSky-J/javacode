@@ -46,28 +46,6 @@ import java.util.TreeSet;
  */
 public class SetDeduplicationPrinciple {
 
-    /**
-     * 未重写 hashCode 的反面教材实体类（导致 HashSet 去重失效）
-     */
-    static class BadUserOnlyEquals {
-        private final long id;
-        private final String name;
-
-        public BadUserOnlyEquals(long id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            BadUserOnlyEquals that = (BadUserOnlyEquals) o;
-            return id == that.id;
-        }
-        // 刻意不重写 hashCode()
-    }
-
     public static void demonstrateDeduplicationMechanisms() {
         System.out.println("--- Set 去重机理与 hashCode/equals 契约实测 ---");
 

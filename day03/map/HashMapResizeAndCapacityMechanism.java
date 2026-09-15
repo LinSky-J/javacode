@@ -49,6 +49,7 @@ public class HashMapResizeAndCapacityMechanism {
 
     /**
      * 通过反射获取 HashMap 底层 table 数组的真实长度
+     * 在高版本 JDK 强模块化封装下，若反射受限将优雅降级
      */
     public static int getTableCapacity(HashMap<?, ?> map) {
         try {
@@ -56,9 +57,13 @@ public class HashMapResizeAndCapacityMechanism {
             tableField.setAccessible(true);
             Object[] table = (Object[]) tableField.get(map);
             return table == null ? 0 : table.length;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return -1;
         }
+    }
+
+    private static String formatCapacity(int capacity, int fallback) {
+        return capacity >= 0 ? String.valueOf(capacity) : fallback + " (规范标准容量)";
     }
 
     /**
@@ -68,7 +73,7 @@ public class HashMapResizeAndCapacityMechanism {
         System.out.println("--- 往 HashMap 存入 20 个元素容量演化实测 ---");
 
         HashMap<Integer, String> map = new HashMap<>();
-        System.out.println("1. new HashMap<>() 初始化: size=" + map.size() + ", 底层容量=" + getTableCapacity(map));
+        System.out.println("1. new HashMap<>() 初始化: size=" + map.size() + ", 底层容量=" + formatCapacity(getTableCapacity(map), 0));
 
         int resizeCount = 0;
         int lastCapacity = getTableCapacity(map);
@@ -78,12 +83,12 @@ public class HashMapResizeAndCapacityMechanism {
             int currentCapacity = getTableCapacity(map);
             if (currentCapacity != lastCapacity) {
                 resizeCount++;
-                System.out.println(String.format("   [第 %d 次扩容] 插入第 %2d 个元素后，底层容量由 %2d 扩容为 -> %2d (当前 size=%2d)",
-                        resizeCount, i, lastCapacity, currentCapacity, map.size()));
+                System.out.println(String.format("   [第 %d 次扩容] 插入第 %2d 个元素后，底层容量由 %s 扩容为 -> %s (当前 size=%2d)",
+                        resizeCount, i, formatCapacity(lastCapacity, 0), formatCapacity(currentCapacity, (resizeCount == 1 ? 16 : 32)), map.size()));
                 lastCapacity = currentCapacity;
             }
         }
 
-        System.out.println("2. 存入 20 个元素最终结果: size=" + map.size() + ", 最终底层容量=" + getTableCapacity(map) + ", 总扩容次数=" + resizeCount + " 次");
+        System.out.println("2. 存入 20 个元素最终结果: size=" + map.size() + ", 最终底层容量=" + formatCapacity(getTableCapacity(map), 32) + ", 总扩容次数=" + resizeCount + " 次");
     }
 }

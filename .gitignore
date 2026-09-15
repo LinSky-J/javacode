@@ -1,0 +1,11 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+out/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log

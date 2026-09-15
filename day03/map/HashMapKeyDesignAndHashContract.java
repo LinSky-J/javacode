@@ -51,39 +51,6 @@ import java.util.Objects;
  */
 public class HashMapKeyDesignAndHashContract {
 
-    /**
-     * 可变 Key 实体类（反面教材演示）
-     */
-    static class MutableKey {
-        private String identifier;
-
-        public MutableKey(String identifier) {
-            this.identifier = identifier;
-        }
-
-        public void setIdentifier(String identifier) {
-            this.identifier = identifier;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            MutableKey that = (MutableKey) o;
-            return Objects.equals(identifier, that.identifier);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(identifier);
-        }
-
-        @Override
-        public String toString() {
-            return "MutableKey{" + identifier + "}";
-        }
-    }
-
     public static void demonstrateMutableKeyLeak() {
         System.out.println("--- 可变对象作为 HashMap Key 引发无法检索与内存泄漏实测 ---");
 

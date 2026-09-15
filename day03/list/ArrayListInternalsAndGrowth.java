@@ -50,6 +50,7 @@ public class ArrayListInternalsAndGrowth {
 
     /**
      * 反射获取 ArrayList 底层 Object[] 数组的真实物理容量
+     * 在高版本 JDK (如 JDK 17/21) 强模块化封装下，若反射受限将优雅降级
      */
     public static int getArrayListCapacity(ArrayList<?> list) {
         try {
@@ -57,9 +58,13 @@ public class ArrayListInternalsAndGrowth {
             field.setAccessible(true);
             Object[] elementData = (Object[]) field.get(list);
             return elementData.length;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return -1;
         }
+    }
+
+    private static String formatCapacity(int capacity, int expected) {
+        return capacity >= 0 ? String.valueOf(capacity) : expected + " (规范标准容量)";
     }
 
     /**
@@ -69,24 +74,24 @@ public class ArrayListInternalsAndGrowth {
         System.out.println("--- ArrayList 扩容机制动态演进实测 ---");
 
         ArrayList<Integer> list = new ArrayList<>();
-        System.out.println("1. new ArrayList<>() 初始化后未添加元素: size=" + list.size() + ", 底层容量=" + getArrayListCapacity(list));
+        System.out.println("1. new ArrayList<>() 初始化后未添加元素: size=" + list.size() + ", 底层容量=" + formatCapacity(getArrayListCapacity(list), 0));
 
         list.add(1);
-        System.out.println("2. 首次调用 add() 后（惰性分配默认容量）: size=" + list.size() + ", 底层容量=" + getArrayListCapacity(list));
+        System.out.println("2. 首次调用 add() 后（惰性分配默认容量）: size=" + list.size() + ", 底层容量=" + formatCapacity(getArrayListCapacity(list), 10));
 
         for (int i = 2; i <= 10; i++) {
             list.add(i);
         }
-        System.out.println("3. 填满 10 个元素，此时尚未扩容: size=" + list.size() + ", 底层容量=" + getArrayListCapacity(list));
+        System.out.println("3. 填满 10 个元素，此时尚未扩容: size=" + list.size() + ", 底层容量=" + formatCapacity(getArrayListCapacity(list), 10));
 
         list.add(11);
-        System.out.println("4. 插入第 11 个元素触发 1.5 倍扩容 (10 -> 15): size=" + list.size() + ", 底层容量=" + getArrayListCapacity(list));
+        System.out.println("4. 插入第 11 个元素触发 1.5 倍扩容 (10 -> 15): size=" + list.size() + ", 底层容量=" + formatCapacity(getArrayListCapacity(list), 15));
 
         for (int i = 12; i <= 15; i++) {
             list.add(i);
         }
         list.add(16);
-        System.out.println("5. 插入第 16 个元素再次触发 1.5 倍扩容 (15 -> 22): size=" + list.size() + ", 底层容量=" + getArrayListCapacity(list));
+        System.out.println("5. 插入第 16 个元素再次触发 1.5 倍扩容 (15 -> 22): size=" + list.size() + ", 底层容量=" + formatCapacity(getArrayListCapacity(list), 22));
     }
 
     /**

@@ -38,11 +38,10 @@ public class MapTraversalPerformanceBenchmark {
         map.put("K3", "V3");
 
         // 1. entrySet() 增强 for 遍历
-        System.out.print("1. entrySet() 增强 for 遍历: ");
+        System.out.println("1. entrySet() 增强 for 遍历:");
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            System.out.print(entry.getKey() + "=" + entry.getValue() + " ");
+            System.out.println("   entry.getKey() = " + entry.getKey() + ", value = " + entry.getValue());
         }
-        System.out.println();
 
         // 2. entrySet() Iterator 迭代器遍历（支持遍历中安全删除）
         System.out.print("2. entrySet() Iterator 遍历: ");
