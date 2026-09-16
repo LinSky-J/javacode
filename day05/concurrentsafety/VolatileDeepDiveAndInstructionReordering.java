@@ -1,4 +1,4 @@
-package volatilekeyword;
+package concurrentsafety;
 
 /**
  * volatile 关键字底层原理、指令重排序机制、线程安全边界及与 synchronized 全方位对比

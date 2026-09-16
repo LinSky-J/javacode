@@ -1,4 +1,4 @@
-package juc;
+package multithread;
 
 import java.util.concurrent.*;
 

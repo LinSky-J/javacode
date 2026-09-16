@@ -1,4 +1,4 @@
-package locks;
+package concurrentsafety;
 
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.StampedLock;

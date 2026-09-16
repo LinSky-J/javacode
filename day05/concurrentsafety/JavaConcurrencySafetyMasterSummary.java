@@ -1,4 +1,4 @@
-package overview;
+package concurrentsafety;
 
 /**
  * 并发安全、锁体系与 JUC 核心原理全景总览与大厂面试答辩金句汇编

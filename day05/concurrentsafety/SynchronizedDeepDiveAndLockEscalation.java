@@ -1,4 +1,4 @@
-package sync;
+package concurrentsafety;
 
 /**
  * synchronized 深度剖析、锁升级全过程、JVM 锁优化及与 ReentrantLock 全面对比
