@@ -1,4 +1,4 @@
-package oom;
+package memory;
 
 import java.util.ArrayList;
 import java.util.List;
