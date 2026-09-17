@@ -1,348 +1,362 @@
-# Java Interview Master (Java 高频核心面试题全景深度解析与实战项目)
+<div align="center">
 
-[English Version Below](#english-version) | [中文版本](#中文版本)
+# Java Interview Master
+
+### 一线大厂高频核心技术点全景剖析与可运行实战代码库
+### Comprehensive, Runnable & Production-Grade Java Interview Architecture
+
+[![Java](https://img.shields.io/badge/Java-8%20|%2017%20|%2021-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20|%20Linux%20|%20macOS-0078D4?style=for-the-badge)](https://github.com/LinSky-J/javacode)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://github.com/LinSky-J/javacode)
+[![Test Cases](https://img.shields.io/badge/Runnable_Cases-150+-blue?style=for-the-badge)](https://github.com/LinSky-J/javacode)
+[![Code Style](https://img.shields.io/badge/Code_Style-Clean_Zero_Emoji-orange?style=for-the-badge)](https://github.com/LinSky-J/javacode)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blueviolet?style=for-the-badge)](LICENSE)
+
+<br/>
+
+**[ 中文文档 ](#chinese-version)** &nbsp;&nbsp;|&nbsp;&nbsp; **[ English Documentation ](#english-version)** &nbsp;&nbsp;|&nbsp;&nbsp; **[ 路线导图 / Roadmap ](#roadmap)** &nbsp;&nbsp;|&nbsp;&nbsp; **[ 快速开始 / Quick Start ](#quick-start)**
+
+</div>
 
 ---
 
-<a name="中文版本"></a>
-# 中文版本
+<a name="roadmap"></a>
+## 架构路线导图 / Architecture Roadmap
 
-## 一、项目概述
+```mermaid
+flowchart TD
+    classDef day01 fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0D47A1;
+    classDef day02 fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:#1B5E20;
+    classDef day03 fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:#E65100;
+    classDef day04 fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,color:#4A148C;
+    classDef day05 fill:#FBE9E7,stroke:#D84315,stroke-width:2px,color:#BF360C;
+    classDef day06 fill:#ECEFF1,stroke:#546E7A,stroke-width:2px,color:#263238;
 
-本项目是一个专注于 **Java 核心技术、高并发编程、集合框架底层原理与 JVM 深度剖析** 的工程化知识库与面试突击实战代码集。
+    subgraph Phase1["基础奠基 (Foundations)"]
+        D1["Day 01: Java 语言核心与面向对象<br/>语法糖 / 内存传参 / 泛型擦除 / 反射与注解"]:::day01
+        D2["Day 02: 现代 Java 与函数式编程<br/>Stream 流 / CompletableFuture / 虚拟线程"]:::day02
+    end
 
-项目秉承 **“问题导向、源码剖析、实战验证、无死角覆盖”** 的原则，将常见的一线大厂高频面试题转化为结构严谨、可直接运行验证的 Java 源码模块。全工程包含 150+ 个核心类文件，涵盖 Java 语言基础、Java 8/21 新特性、集合容器源码实现、多线程与 JMM 内存模型、AQS/CAS 并发安全锁机制、线程池工程化配置以及 JVM 运行时数据区、类加载双亲委派与垃圾回收（GC）等六大核心阶段。
+    subgraph Phase2["容器与并发 (Collections & Concurrency)"]
+        D3["Day 03: 集合框架底层源码剖析<br/>ArrayList扩容 / 红黑树 / ConcurrentHashMap"]:::day03
+        D4["Day 04: 多线程基础与 JMM 内存模型<br/>生命周期 / 线程通信 / 可见性有序性原子性"]:::day04
+        D5["Day 05: 并发安全与 JUC 生产工程化<br/>锁升级 / CAS与AQS / 自定义锁 / 线程池调优"]:::day05
+    end
+
+    subgraph Phase3["底层内核 (JVM Internals)"]
+        D6["Day 06: JVM 虚拟机核心深度探索<br/>内存布局 / 类加载与双亲委派 / 垃圾回收全景"]:::day06
+    end
+
+    D1 --> D2 --> D3 --> D4 --> D5 --> D6
+```
 
 ---
 
-## 二、知识体系与模块全览
+<a name="chinese-version"></a>
+# 中文文档
 
-项目按专题分为六大递进模块（`day01` - `day06`）：
+## 一、项目设计理念与定位
 
-### Day 01: Java 语言核心基础与面向对象
-深入拆解 Java 语言底层的运行机制、数据类型、语法糖与设计哲学：
-- **`basics/`**: Java 核心特性、优缺点剖析、Java 与 Python 全维度对比。
-- **`execution/`**: 编译型与解释型语言异同、Java“一次编写，到处运行”的跨平台底层实现原理。
-- **`jvm/`**: JVM、JRE、JDK 三者关系与系统架构图谱。
-- **`datatypes/`**: 基本数据类型、自动拆装箱底层实现与 IntegerCache 缓存陷阱。
-- **`parameters/`**: Java 核心参数传递机制（值传递本质与内存对象图谱）。
-- **`oop/`**: 面向对象三大特性（封装、继承、多态）、重写与重载本质、抽象类与接口深度对比、静态嵌套类与非静态内部类。
-- **`keywords/`**: `static` 与 `final` 关键字底层内存布局与使用规范。
-- **`strings/`**: String、StringBuilder 与 StringBuffer 源码对比、不可变性与字符数组复用。
-- **`objects/`**: Object 类核心方法解析、`equals` 与 `hashCode` 契约规范与 Hash 碰撞危害。
-- **`copy/`**: 浅拷贝与深拷贝的实现途径（Cloneable、序列化与深拷贝工具）。
-- **`generics/`**: 泛型核心概念、类型擦除机制（Type Erasure）与通用 Repository 实践。
-- **`reflection/`**: 反射机制原理、优缺点分析、私有属性访问突破与性能损耗应对。
-- **`annotations/`**: 注解原理、元注解体系与运行时反射解析框架实战。
-- **`exceptions/`**: 异常体系继承树、受检异常与非受检异常、try-catch-finally 字节码执行顺序。
+> [!NOTE]
+> 本项目并非简单的面试八股文摘要，而是一套**基于真实代码执行推导、直击底层字节码与操作系统交互**的完整 Java 高频技术攻坚体系。
 
-### Day 02: 现代 Java 新特性与函数式编程
-聚焦企业级开发主流的 Java 8 LTS 及最新 Java 21 LTS 核心进阶特性：
-- **`java8/`**: Lambda 表达式原理、函数式接口体系、默认接口方法设计意图。
-- **`stream/`**: Stream API 核心操作符（filter/map/flatMap/reduce）、惰性求值与性能基准。
-- **`async/`**: CompletableFuture 异步编排、任务合并、异常降级与多源并行处理实战。
-- **`java21/`**: Java 21 核心演进、虚拟线程（Virtual Thread）底层调度模型与百万并发对比。
-- **`serialization/`**: Java 原生序列化、`serialVersionUID` 作用与生产级安全防范。
-- **`other/`**: Java Native Interface (JNI) 本地方法与操作系统底层交互机制。
+- **问题导向**：每一个包、每一个类都直接绑定具体大厂面试原题，回答直截了当。
+- **验证为王**：全工程 150+ 个类均自带独立的 `main` 方法，支持一键在 IDEA 中运行验证。
+- **源码级剖析**：不仅讲解“是什么”，更通过手写实现（如手写 AQS 公平锁、手写打破双亲委派类加载器、模拟卡表与 Region 划分）讲解“为什么”。
+- **严谨工程风格**：全工程严格规范命名，代码、注释与控制台输出完全杜绝任何 emoji 字符，保障生产级技术严谨度。
 
-### Day 03: Java 集合框架底层源码剖析
-全方位攻克大厂必问的集合容器源码、数据结构、扩容缩容与并发安全性：
-- **`concept/`**: Collection 集合框架顶层架构设计、List/Set/Queue/Map 分类体系与遍历策略。
-- **`list/`**:
-  - ArrayList、LinkedList、Vector 核心区别；
-  - ArrayList 动态扩容机制（1.5 倍）与线程安全转换方案；
-  - 多线程并发下 ArrayList 的 `add()` 数据丢失与数组越界底层复现；
-  - CopyOnWriteArrayList 读写分离写时复制机制及适用场景；
-  - List 与数组互转的避坑指南（`Arrays.asList` 陷阱与泛型擦除）。
-- **`set/`**:
-  - List 与 Set 核心区别、HashSet 无重复元素的 `putVal` 底层机制；
-  - 维持插入顺序的 LinkedHashSet 与基于红黑树有序的 TreeSet；
-  - 重写 equals 不重写 hashCode 引发的哈希集合数据泄漏演示。
-- **`map/`**:
-  - HashMap 数组 + 单链表 + 红黑树结构演进；
-  - 为什么用红黑树而不是 AVL 树？哈希冲突解决算法；
-  - put 与 get 完整执行流程及高低位异或扰动函数；
-  - 为什么容量必须是 2 的 n 次方？扩容机制与多线程死循环/数据覆盖问题；
-  - HashTable 与 ConcurrentHashMap 的实现演进（分段锁 Segment -> Node 数组 + CAS + synchronized）。
+---
 
-### Day 04: Java 多线程基础与内存模型 (JMM)
-透彻讲解 Java 并发多线程生命周期、协作通讯与底层硬件级内存模型：
-- **`model/`**: Java 线程与操作系统的内核线程（1:1 模型）映射关系、协程与线程对比。
-- **`creation/`**: 线程创建的四种方式（Thread、Runnable、Callable、线程池）及为何不建议继承 Thread。
-- **`lifecycle/`**: 线程六大状态转换状态机、BLOCKED 与 WAITING 状态细致差异。
-- **`interrupt/`**: 线程中断机制（`interrupt`、`isInterrupted`、`interrupted`）与优雅停机方案。
-- **`waitnotify/`**: `wait()` / `notify()` 底层 ObjectMonitor 机制与虚假唤醒规避。
-- **`communication/`**: 线程间通信的三种方式（共享内存、管道流动、条件队列）。
-- **`jmm/`**: Java 内存模型（主内存与工作内存）、可见性、有序性、原子性三大特性及 Happens-Before 规则。
-- **`overview/`**: 并发编程四大阶段与常见核心面试汇总。
+## 二、六大核心模块深度详解
+
+### Day 01: Java 语言核心基础与面向对象机制
+
+| 分类目录 | 对应核心面试考点 | 深度解析与实战类 |
+| :--- | :--- | :--- |
+| `basics/` | Java 核心特性、优缺点全景、Java 与 Python 全维度对比 | [JavaFeaturesAndProsCons.java](file:///e:/java/Java%20interview/day01/basics/JavaFeaturesAndProsCons.java) |
+| `execution/` | 编译型与解释型异同、一次编写到处运行的 JVM 跨平台本质 | [JavaCrossPlatformPrinciple.java](file:///e:/java/Java%20interview/day01/execution/JavaCrossPlatformPrinciple.java) |
+| `jvm/` | JVM、JRE 与 JDK 边界划分与体系全貌 | [JvmConceptAndJdkJreRelationship.java](file:///e:/java/Java%20interview/day01/jvm/JvmConceptAndJdkJreRelationship.java) |
+| `datatypes/` | 基本数据类型隐式转换、自动拆装箱底层字节码与 IntegerCache 陷阱 | [JavaIntegerAndBoxingMechanism.java](file:///e:/java/Java%20interview/day01/datatypes/JavaIntegerAndBoxingMechanism.java) |
+| `parameters/` | Java 参数传递本质（值传递图解与对象地址操作证明） | [JavaValueTransferMechanism.java](file:///e:/java/Java%20interview/day01/parameters/JavaValueTransferMechanism.java) |
+| `oop/` | 面向对象三大特性、抽象类 vs 接口、静态嵌套类与内部类 | [OopFeaturesAndPolymorphism.java](file:///e:/java/Java%20interview/day01/oop/features/OopFeaturesAndPolymorphism.java) |
+| `keywords/` | `static` 内存分配时机、`final` 内存不可变性与安全性 | [JavaFinalKeywordMechanism.java](file:///e:/java/Java%20interview/day01/keywords/finalkeyword/JavaFinalKeywordMechanism.java) |
+| `strings/` | String 不可变性设计哲学、StringBuilder 与 StringBuffer 扩容比较 | [StringAndBufferBuilderComparison.java](file:///e:/java/Java%20interview/day01/strings/StringAndBufferBuilderComparison.java) |
+| `objects/` | `equals` 与 `hashCode` 契约规范、哈希碰撞与对象比较避坑 | [ObjectMethodsAndComparisonExplanation.java](file:///e:/java/Java%20interview/day01/objects/methods/ObjectMethodsAndComparisonExplanation.java) |
+| `copy/` | 浅拷贝与深拷贝三种实现途径对比（Cloneable/序列化/工具类） | [ShallowVsDeepCopyComparison.java](file:///e:/java/Java%20interview/day01/copy/ShallowVsDeepCopyComparison.java) |
+| `generics/` | 泛型类型擦除底层机理（Type Erasure）、桥接方法与通用 CRUD | [JavaGenericsConceptAndErasure.java](file:///e:/java/Java%20interview/day01/generics/JavaGenericsConceptAndErasure.java) |
+| `reflection/` | 反射底层实现机制、私有属性穿透调用与性能损耗规避 | [JavaReflectionMechanismAndUsage.java](file:///e:/java/Java%20interview/day01/reflection/JavaReflectionMechanismAndUsage.java) |
+| `annotations/` | 自定义注解定义、元注解体系与运行时反射解析框架实战 | [JavaAnnotationPrincipleAndParsing.java](file:///e:/java/Java%20interview/day01/annotations/JavaAnnotationPrincipleAndParsing.java) |
+| `exceptions/` | 异常继承树（Throwable/Exception/Error）、受检异常与 finally 顺序 | [JavaExceptionHierarchyAndHandling.java](file:///e:/java/Java%20interview/day01/exceptions/JavaExceptionHierarchyAndHandling.java) |
+
+---
+
+### Day 02: 现代 Java 进阶特性与异步函数式编程
+
+| 分类目录 | 对应核心面试考点 | 深度解析与实战类 |
+| :--- | :--- | :--- |
+| `java8/` | Lambda 表达式原理、函数式接口四大核心、接口默认方法与静态方法 | [Java8FeaturesAndLambdaExplanation.java](file:///e:/java/Java%20interview/day02/java8/Java8FeaturesAndLambdaExplanation.java) |
+| `stream/` | Stream 流惰性求值、常用算子（filter/map/flatMap/reduce）与性能基准 | [StreamApiOperationsAndPrinciples.java](file:///e:/java/Java%20interview/day02/stream/StreamApiOperationsAndPrinciples.java) |
+| `async/` | CompletableFuture 异步编排、任务合并、异常降级与多源并行拉取 | [CompletableFutureUsageExplanation.java](file:///e:/java/Java%20interview/day02/async/CompletableFutureUsageExplanation.java) |
+| `java21/` | Java 21 虚拟线程（Virtual Thread）底层调度、载体线程与并发性能对比 | [VirtualThreadArchitecture.java](file:///e:/java/Java%20interview/day02/java21/VirtualThreadArchitecture.java) |
+| `serialization/` | Java 原生序列化、`serialVersionUID` 一致性与敏感字段 transient 保护 | [JavaSerializationPrinciplesAndSecurity.java](file:///e:/java/Java%20interview/day02/serialization/JavaSerializationPrinciplesAndSecurity.java) |
+| `other/` | JNI 本地方法栈与操作系统底层 C/C++ 交互通信机制 | [OtherQuestionsExplanation.java](file:///e:/java/Java%20interview/day02/other/OtherQuestionsExplanation.java) |
+
+---
+
+### Day 03: Java 集合框架底层源码深度剖析
+
+| 集合体系 | 核心考点与设计精髓 | 深度解析与实战类 |
+| :--- | :--- | :--- |
+| **Concept** | Collection 顶层架构设计、List/Set/Queue/Map 分类体系与遍历策略 | [JavaCollectionArchitecture.java](file:///e:/java/Java%20interview/day03/concept/JavaCollectionArchitecture.java) |
+| **List 专题** | • ArrayList 动态扩容机制（1.5 倍）与线程安全转换方案<br/>• 多线程并发下 ArrayList 的 `add()` 数据丢失与数组越界底层复现<br/>• CopyOnWriteArrayList 读写分离写时复制机制及适用场景<br/>• `Arrays.asList` 陷阱与泛型转换深度剖析 | [ListImplementationsComparison.java](file:///e:/java/Java%20interview/day03/list/ListImplementationsComparison.java)<br/>[ArrayListInternalsAndGrowth.java](file:///e:/java/Java%20interview/day03/list/ArrayListInternalsAndGrowth.java)<br/>[ArrayListConcurrencyUnsafeDemo.java](file:///e:/java/Java%20interview/day03/list/ArrayListConcurrencyUnsafeDemo.java)<br/>[CopyOnWriteArrayListDeepDive.java](file:///e:/java/Java%20interview/day03/list/CopyOnWriteArrayListDeepDive.java) |
+| **Set 专题** | • List 与 Set 核心区别、HashSet 底层基于 HashMap 的键去重机制<br/>• 维持插入顺序的 LinkedHashSet 与基于红黑树的 TreeSet 排序机制<br/>• 重写 equals 未重写 hashCode 引发的哈希集合内存泄漏与检索失效演示 | [SetCharacteristicsAndDeduplication.java](file:///e:/java/Java%20interview/day03/set/SetCharacteristicsAndDeduplication.java)<br/>[SetSortingAndOrderingDemo.java](file:///e:/java/Java%20interview/day03/set/SetSortingAndOrderingDemo.java)<br/>[EqualsAndHashCodeContractInSet.java](file:///e:/java/Java%20interview/day03/set/EqualsAndHashCodeContractInSet.java) |
+| **Map 专题** | • HashMap 数组 + 单链表 + 红黑树结构演进与红黑树 vs AVL 树选型考量<br/>• put 与 get 完整执行流程及高低位异或扰动函数<br/>• 为什么容量必须是 2 的 n 次方？扩容机制与多线程并发安全隐患<br/>• HashTable 与 ConcurrentHashMap 的实现演进（分段锁 -> CAS + synchronized） | [HashMapInternalsAndPutGetFlow.java](file:///e:/java/Java%20interview/day03/map/HashMapInternalsAndPutGetFlow.java)<br/>[HashMapRedBlackTreeVsAvlExplanation.java](file:///e:/java/Java%20interview/day03/map/HashMapRedBlackTreeVsAvlExplanation.java)<br/>[HashMapResizeAndCapacityMechanism.java](file:///e:/java/Java%20interview/day03/map/HashMapResizeAndCapacityMechanism.java)<br/>[HashTableVsConcurrentHashMapDeepDive.java](file:///e:/java/Java%20interview/day03/map/HashTableVsConcurrentHashMapDeepDive.java) |
+
+---
+
+### Day 04: Java 多线程基础与 JMM 内存模型
+
+```mermaid
+stateDiagram-v2
+    [*] --> NEW: new Thread()
+    NEW --> RUNNABLE: start()
+    RUNNABLE --> BLOCKED: 等待获取 synchronized 监视器锁
+    BLOCKED --> RUNNABLE: 成功获取锁
+    RUNNABLE --> WAITING: wait() / join() / LockSupport.park()
+    WAITING --> RUNNABLE: notify() / unpark()
+    RUNNABLE --> TIMED_WAITING: sleep(t) / wait(t) / parkNanos(t)
+    TIMED_WAITING --> RUNNABLE: 超时 / 唤醒
+    RUNNABLE --> TERMINATED: 执行完毕或抛出未捕获异常
+    TERMINATED --> [*]
+```
+
+- **`model/`**: Java 线程与操作系统的内核级线程（1:1 模型）映射机制、用户态与内核态切换开销。
+- **`creation/`**: 线程创建的四种方式及为何不建议继承 `Thread` 类的解耦设计。
+- **`lifecycle/`**: 线程六大生命周期状态机精准流转、BLOCKED 与 WAITING 状态细致差异。
+- **`interrupt/`**: 协作式中断机制（`interrupt`、`isInterrupted`、`interrupted`）与优雅停机最佳实践。
+- **`waitnotify/`**: `wait()` 与 `notify()` 底层 ObjectMonitor 机制与虚假唤醒（Spurious Wakeup）防护。
+- **`communication/`**: 线程间通信模式（共享内存、管道流动、条件队列 Condition）。
+- **`jmm/`**: Java 内存模型主内存与工作内存交互、可见性/有序性/原子性三大特性及 Happens-Before 规则详解。
+
+---
 
 ### Day 05: 并发安全体系、JUC 核心工具与线程池工程化
-攻坚高并发系统架构中不可或缺的锁升级、无锁并发、AQS 抽象队列同步器与线程池调优：
-- **`concurrentsafety/`**:
-  - `volatile` 内存语义、内存屏障（LoadLoad/LoadStore/StoreStore/StoreLoad）与双重检验锁单例；
-  - `synchronized` 锁升级演进（无锁 -> 偏向锁 -> 轻量级锁 -> 重量级锁）与 Mark Word 布局；
-  - 乐观锁与悲观锁、公平锁与非公平锁、可重入锁底层计数逻辑；
-  - CAS 无锁原子操作、Unsafe 原理、ABA 问题与 AtomicStampedReference 解决方案；
-  - AQS（AbstractQueuedSynchronizer）核心架构、State 状态与双向 CLH 队列变种，基于 AQS 手写实现自定义可重入公平锁。
-- **`multithread/`**:
-  - 死锁形成的四个必要条件与破坏策略（Lock 接口 `tryLock` 定时尝试避免死锁）；
-  - ThreadLocal 核心实现原理、ThreadLocalMap 弱引用机制与内存泄漏排查（`remove()` 必须调用）；
-  - JUC 核心并发工具类（CountDownLatch、CyclicBarrier、Semaphore）。
-- **`threadpool/`**:
-  - 线程池核心七大参数解析与工作任务调度队列运转流程；
-  - 四种系统默认拒绝策略与生产级自定义告警/持久化拒绝策略实战；
-  - 动态线程池调优实践与 CPU 密集型/IO 密集型线程数精确计算。
 
-### Day 06: JVM 虚拟机深度探秘（内存模型、类加载与垃圾回收）
-聚焦 JVM 内部黑盒运作机理、从字节码执行到垃圾回收的全生命周期管理：
-- **`memory/` (JVM 内存结构与排查)**:
-  - JVM 运行时数据区五大组成部分及各区域职责；
-  - 堆和栈的区别（指针还是对象）；
-  - 堆分代结构（Eden/Survivor/Old/Humongous）与大对象分配；
-  - 方法区演进（永久代 -> 元空间）与字节码执行引擎；
-  - 字符串常量池机制、`String s = new String("abc")` 内存分配流转；
-  - 强、软、弱、虚四大引用类型与 WeakHashMap 典型应用；
-  - 内存泄漏与内存溢出（OOM）实战复现、排查工具（MAT/JProfiler/VisualVM）与生产调优。
-- **`classloading/` (类初始化与双亲委派机制)**:
-  - 对象创建的六大详细流程与完整生命周期（加载 -> 连接 -> 初始化 -> 使用 -> 卸载）；
-  - 类加载器层级结构（Bootstrap -> Extension/Platform -> Application -> Custom）；
-  - 双亲委派模型的定义、三大核心作用（安全性、一致性、避免重复加载）；
-  - 破坏双亲委派机制的场景（SPI 机制、OSGi、Tomcat 类加载隔离）及手写打破双亲委派的自定义 ClassLoader。
-- **`gc/` (垃圾回收机制与算法)**:
+> [!IMPORTANT]
+> 并发安全核心模块包含手写可重入公平锁、死锁排查与线上线程池动态调优实战，是高并发架构面试的核心拉分项。
+
+- **`concurrentsafety/` (锁机制与底层原子操作)**:
+  - **Volatile**: 内存可见性语义、禁止指令重排序、四种内存屏障与双重检查锁定（DCL）单例。
+  - **Synchronized 锁升级**: Mark Word 64 位结构演进（无锁 -> 偏向锁 -> 轻量级锁 -> 重量级锁）。
+  - **锁分类图谱**: 乐观锁与悲观锁、公平锁与非公平锁、读写锁与自旋锁。
+  - **CAS 与 Unsafe**: 硬件级原子指令、ABA 问题与 `AtomicStampedReference` 版本戳解决方案。
+  - **AQS 核心架构**: State 状态变量、双向 CLH 同步队列变种，手写实现自定义可重入公平锁。
+- **`multithread/` (JUC 工具与死锁防控)**:
+  - 死锁产生的四个必要条件与破坏方案（基于 `Lock.tryLock()` 超时规避死锁）。
+  - `ThreadLocal` 底层原理、ThreadLocalMap 弱引用机制与内存泄漏排查（`remove()` 规范）。
+  - JUC 核心协作工具：`CountDownLatch`、`CyclicBarrier`、`Semaphore`。
+- **`threadpool/` (线程池工程化实战)**:
+  - 线程池核心七大参数详解与任务提交调度流水线。
+  - 四种系统内置拒绝策略与自定义告警/降级拒绝策略实战。
+  - CPU 密集型与 IO 密集型线程池容量理论估算与生产动态调优方案。
+
+---
+
+### Day 06: JVM 虚拟机深度探秘（内存结构、类加载与垃圾回收）
+
+```mermaid
+flowchart LR
+    subgraph Heap["Java 堆内存 (Heap)"]
+        subgraph YoungGen["新生代 (Young Generation)"]
+            Eden["Eden 区 (80%)"]
+            S0["From Survivor (10%)"]
+            S1["To Survivor (10%)"]
+        end
+        OldGen["老年代 (Old Generation)<br/>长期存活对象 / 大对象"]
+    end
+    
+    subgraph NonHeap["非堆内存 (Non-Heap)"]
+        Metaspace["元空间 (Metaspace)<br/>类元数据 / 常量池"]
+    end
+
+    Eden -- "Minor GC (复制)" --> S1
+    S0 -- "Minor GC (复制)" --> S1
+    S1 -- "达到年龄阈值 (默认15)" --> OldGen
+    YoungGen -- "老年代满 / 担保失败" --> FullGC["Full GC (整堆收集)"]
+    OldGen --> FullGC
+    Metaspace -- "元空间耗尽" --> FullGC
+```
+
+- **`memory/` (JVM 运行时数据区与故障排查)**:
+  - 五大运行时数据区（程序计数器、虚拟机栈、本地方法栈、堆、方法区/元空间）。
+  - 栈帧内部结构（局部变量表、操作数栈、动态链接、方法返回地址）。
+  - 堆分代结构演进、对象分配规则与大对象直接进老年代。
+  - 字符串常量池机制、`String s = new String("abc")` 内存分配过程与 `intern()` 剖析。
+  - 强引用、软引用、弱引用、虚引用深度对比与 `WeakHashMap` 典型应用。
+  - 内存泄漏与内存溢出（OOM）实战复现、排查工具（MAT、JProfiler、VisualVM）与排查步骤。
+- **`classloading/` (类加载过程与双亲委派机制)**:
+  - 对象创建的六大详细流程与完整生命周期（加载 -> 验证 -> 准备 -> 解析 -> 初始化 -> 使用 -> 卸载）。
+  - 类加载器层级（Bootstrap -> Extension/Platform -> Application -> Custom）。
+  - 双亲委派模型定义、三大核心价值（安全性、一致性、避免重复加载）。
+  - 破坏双亲委派机制的典型场景（SPI 机制、OSGi、Tomcat 隔离）与手写打破双亲委派的自定义 ClassLoader。
+- **`gc/` (垃圾回收机制与算法全解)**:
   - 垃圾回收定义与自动/手动触发条件；
-  - 垃圾判别方法（引用计数法缺陷 vs 可达性分析法及对象自救）；
-  - 垃圾回收算法演进（标记-清除、标记-复制、标记-整理、分代收集、分区算法）；
+  - 垃圾判别方法：引用计数法缺陷 vs 可达性分析法及对象自救机制；
+  - 垃圾回收核心算法：标记-清除、标记-复制、标记-整理、分代收集、分区算法；
   - 标记清除算法的致命缺陷（碎片化与效率不稳定）；
   - GC 哪些阶段会 Stop The World (STW)？
   - Minor GC、Major GC、Full GC 核心区别与 Full GC 触发的六大场景；
   - 垃圾收集器全景图谱（Serial、Parallel、CMS、G1、ZGC、Shenandoah）；
   - CMS 与 G1 的六大维度深度对比及选型指南；
   - G1 回收器的七大核心特色（Region、垃圾优先、停顿预测模型、SATB等）；
-  - GC 的回收范围（不仅是堆，元空间废弃常量与类卸载）。
-
----
-
-## 三、工程特色与规范
-
-1. **题目覆盖全面且原汁原味**：严格保留一线开发与面试常见原题，配套系统解答，兼顾面试突击与长期架构底层积累。
-2. **100% 独立可运行**：每个重点模块均包含完整的 `main` 方法，支持随时单点运行调试并实时查看控制台推导日志。
-3. **零 Emoji 严谨代码风格**：全工程遵循专业工程规范，代码、日志与注释完全杜绝任何 emoji 字符，保证跨平台终端输出整洁不乱码。
-4. **编译零报错与高质量**：全工程 150+ 源码文件经过严格的全量编译验证，保证无语法错误、无缺失依赖。
-
----
-
-## 四、快速上手指南
-
-### 1. 环境依赖
-- **操作系统**: Windows / macOS / Linux
-- **开发工具**: IntelliJ IDEA 2023+ / VS Code
-- **JDK 版本**: JDK 17 或 JDK 21（推荐使用支持虚拟线程的 JDK 21，向前兼容 JDK 8 核心语法）
-- **编译配置**: 源码统一采用 UTF-8 编码
-
-### 2. 导入与运行
-1. 克隆代码仓库：
-   ```bash
-   git clone https://github.com/LinSky-J/javacode.git
-   ```
-2. 打开 IntelliJ IDEA，选择 `File -> Open`，定位并打开项目根目录。
-3. 确保 Project SDK 配置为 JDK 17 或 JDK 21。
-4. 导航至任意专题目录（如 `day06/gc/GarbageCollectionInterviewMasterSummary.java`），点击类名旁的运行按钮即可在控制台查看深度推导与分析输出。
+  - GC 的回收范围（不仅是堆，方法区/元空间的废弃常量与类卸载）。
 
 ---
 
 <a name="english-version"></a>
-# English Version
+# English Documentation
 
-## 1. Project Overview
+## 1. Architectural Vision & Principles
 
-**Java Interview Master** is an engineering-grade knowledge base and runnable test-case repository focusing on **Core Java Mechanics, Concurrent Programming, Collection Framework Internals, and JVM Architecture**.
+> [!NOTE]
+> This repository is not merely an interview preparation cheat-sheet, but an **empirically validated, production-grade Java architecture learning suite** grounded in source-level execution and OS-level interactions.
 
-Adhering to the core philosophy of **"Problem-Driven, Source-Level Analysis, Empirical Verification, and Exhaustive Coverage"**, this repository converts high-frequency technical interview questions from top-tier tech companies into clean, well-structured, and directly executable Java source files. With over 150 class files, it systematically covers fundamental language concepts, modern Java 8/21 features, collection internals, multithreading and JMM, lock escalation, AQS/CAS lock-free mechanisms, thread pool tuning, and the JVM runtime, class loading delegation, and Garbage Collection (GC).
+- **Question-Centric**: Every package and class directly targets genuine corporate interview questions.
+- **Runnable Evidence**: All 150+ classes contain standalone `main` methods for immediate execution and tracing.
+- **Source-Level Mastery**: Beyond theoretical answers, the repository demonstrates the underlying mechanics through hands-on implementations (e.g., custom fair locks via AQS, breaking parents delegation via custom classloaders, simulating card tables and G1 region calculations).
+- **Engineering Rigor**: Zero emojis in all code, comments, and console outputs to preserve an authentic production-grade software standard.
 
 ---
 
-## 2. Comprehensive Module Directory
+## 2. Six Core Modules Overview
 
-The repository is structured into six progressive modules (`day01` to `day06`):
+### Day 01: Core Java Foundations & OOP Mechanics
+Deconstructs language execution, typing rules, and core design principles:
+- **Language Fundamentals**: Differences between compiled and interpreted languages, JRE/JDK boundaries, pass-by-value proof.
+- **Object-Oriented Design**: Encapsulation, inheritance, polymorphism, abstract classes vs interfaces, static nested classes.
+- **Key Concepts**: `static` and `final` immutability, String pooling and mutable buffers, `equals`/`hashCode` contract violations.
+- **Advanced Mechanics**: Generics type erasure, reflection performance optimization, custom annotation reflection framework, and exception hierarchy execution flow.
 
-### Day 01: Core Java Foundations & Object-Oriented Principles
-Deconstructing runtime execution, typing system, syntax sugar, and OOP design:
-- **`basics/`**: Core Java features, trade-offs, and an exhaustive feature comparison between Java and Python.
-- **`execution/`**: Compiled vs. interpreted languages, and the mechanics of Java's "Write Once, Run Anywhere" cross-platform portability.
-- **`jvm/`**: Architecture diagrams and boundary distinctions between JVM, JRE, and JDK.
-- **`datatypes/`**: Primitive types, auto-boxing/unboxing bytecodes, and IntegerCache pool traps.
-- **`parameters/`**: Value-transfer mechanism (pass-by-value nature with memory object graph representations).
-- **`oop/`**: Encapsulation, inheritance, polymorphism, overriding vs overloading, abstract classes vs interfaces, and static nested vs inner classes.
-- **`keywords/`**: `static` and `final` keywords in memory allocation and immutability design.
-- **`strings/`**: Source comparison of String, StringBuilder, and StringBuffer; immutability and char/byte array optimizations.
-- **`objects/`**: Object methods deep dive, contract requirements for `equals` and `hashCode`, and hash collision impact.
-- **`copy/`**: Shallow copy vs deep copy approaches (Cloneable, serialization, and deep copy utilities).
-- **`generics/`**: Generics theory, Type Erasure mechanics, bridge methods, and generic repository design.
-- **`reflection/`**: Reflection capabilities, performance overhead, bypassing private access, and optimization tips.
-- **`annotations/`**: Annotation mechanics, meta-annotations, and building a runtime reflection-based annotation parser.
-- **`exceptions/`**: Exception hierarchy, checked vs unchecked exceptions, and try-catch-finally return evaluation flow.
+### Day 02: Modern Java & Asynchronous Functional Programming
+Focuses on long-term support releases (Java 8 LTS & Java 21 LTS):
+- **Functional Programming**: Lambda syntax mechanics, the four core functional interfaces, and default methods.
+- **Stream API**: Stream pipelines, lazy evaluation, benchmark comparisons.
+- **Asynchronous Orchestration**: `CompletableFuture` task composition, parallel data joins, and error fallback handlers.
+- **Next-Gen Concurrency**: Java 21 Virtual Threads architecture, carrier thread scheduling, and throughput under heavy concurrent loads.
 
-### Day 02: Modern Java & Advanced Features
-Targeting corporate-level LTS versions (Java 8 LTS and Java 21 LTS):
-- **`java8/`**: Lambda expressions, functional interfaces (`Function`, `Predicate`, `Consumer`, `Supplier`), and default methods in interfaces.
-- **`stream/`**: Stream API pipeline processing (`filter`, `map`, `flatMap`, `reduce`), lazy evaluation, and performance benchmarks.
-- **`async/`**: CompletableFuture asynchronous task pipelines, orchestration, exception handling, and parallel task joining.
-- **`java21/`**: Virtual Threads architecture, carrier thread scheduling, and handling millions of concurrent tasks.
-- **`serialization/`**: Native Java serialization, `serialVersionUID` importance, and security risks.
-- **`other/`**: Java Native Interface (JNI) and system-level OS interactions.
-
-### Day 03: Java Collections Framework Internals
-Deep dive into data structures, resizing mechanics, and concurrent safety of core collections:
-- **`concept/`**: Collection framework architecture, taxonomy of List, Set, Queue, and Map, and traversal benchmarking.
-- **`list/`**:
-  - Comparison of ArrayList, LinkedList, and Vector;
-  - Dynamic growth algorithm (1.5x) and synchronization wrappers;
-  - Multithreaded race conditions in ArrayList (lost updates and `ArrayIndexOutOfBoundsException`);
-  - CopyOnWriteArrayList design, copy-on-write snapshot mechanics, and use cases;
-  - Safe conversion between arrays and lists (`Arrays.asList` fixed-size traps).
-- **`set/`**:
-  - Differences between List and Set, HashSet's internal delegation to HashMap `putVal`;
-  - LinkedHashSet insertion order maintenance and TreeSet Red-Black tree sorting;
-  - Memory leak and data loss demonstrations when overriding `equals` without `hashCode`.
-- **`map/`**:
-  - HashMap layout evolution (Array + LinkedList + Red-Black Tree);
-  - Why Red-Black Trees instead of AVL Trees; Hash collision resolution strategies;
-  - Step-by-step trace of `put` and `get`, bitwise hash spread functions;
-  - Why table capacity must be a power of two; Resizing behavior and multi-threading race conditions;
-  - Architectural evolution from HashTable to ConcurrentHashMap (Segment locking -> Node array + CAS + synchronized).
+### Day 03: Java Collections Framework Source Code Deep Dive
+Comprehensive study of collections data structures, resizing mechanics, and concurrent safety:
+- **List Implementations**: ArrayList internal array growth (1.5x), thread-safe wrappers, multi-threaded lost updates, and `CopyOnWriteArrayList` copy-on-write snapshot mechanics.
+- **Set Implementations**: HashSet deduplication via HashMap `putVal`, `LinkedHashSet` insertion ordering, `TreeSet` Red-Black tree sorting, and memory leaks when omitting `hashCode`.
+- **Map Internals**: HashMap treeification (Red-Black tree vs AVL), bitwise hash spread algorithms, power-of-two table sizing, multi-threaded race conditions, and `ConcurrentHashMap` evolution from Segment locking to CAS + synchronized.
 
 ### Day 04: Multithreading Fundamentals & Java Memory Model (JMM)
-Exploring thread lifecycles, inter-thread synchronization, and memory consistency:
-- **`model/`**: Java thread to OS kernel thread mapping (1:1 model), and threads vs coroutines.
-- **`creation/`**: Four ways to create threads (Thread, Runnable, Callable, ThreadPool) and best practices.
-- **`lifecycle/`**: The six-state thread state machine, and precise differences between BLOCKED and WAITING.
-- **`interrupt/`**: Thread interruption protocols (`interrupt`, `isInterrupted`, `interrupted`) and graceful shutdown patterns.
-- **`waitnotify/`**: `wait()` and `notify()` with ObjectMonitor, and avoiding spurious wakeups.
-- **`communication/`**: Inter-thread communication mechanisms (shared memory, pipes, conditional wait queues).
-- **`jmm/`**: Main memory vs working memory, Visibility, Atomicity, Ordering, and Happens-Before rules.
-- **`overview/`**: Multi-phase concurrent programming roadmap and interview summary.
+Unravels thread lifecycles, coordination mechanisms, and hardware-level memory visibility:
+- **Thread Mechanics**: OS kernel thread mapping (1:1 model), 4 creation methods, and 6-state state machine.
+- **Cooperative Interruption**: `interrupt()`, `isInterrupted()`, and `interrupted()` graceful teardown protocols.
+- **Inter-Thread Communication**: ObjectMonitor wait/notify protocols, preventing spurious wakeups, and Condition wait-queues.
+- **JMM Specification**: Main memory vs working memory, Visibility, Ordering, Atomicity, and Happens-Before rules.
 
 ### Day 05: Concurrency Safety, JUC Utilities & ThreadPool Engineering
-Mastering lock upgrades, non-blocking synchronization, AQS, and industrial thread pool management:
-- **`concurrentsafety/`**:
-  - `volatile` semantics, memory barriers (LoadLoad, LoadStore, StoreStore, StoreLoad), and DCL Singleton;
-  - `synchronized` lock escalation (No lock -> Biased lock -> Lightweight lock -> Heavyweight lock) and Mark Word layouts;
-  - Optimistic vs pessimistic locks, fair vs non-fair locks, and reentrant locking logic;
-  - CAS operations, Unsafe mechanics, ABA problems, and AtomicStampedReference resolution;
-  - AQS (AbstractQueuedSynchronizer) architecture, synchronization state, CLH queue variants, and writing a custom fair reentrant lock.
-- **`multithread/`**:
-  - Four necessary conditions of Deadlock and avoidance strategies (`tryLock` timeout pattern);
-  - ThreadLocal mechanics, ThreadLocalMap weak reference design, and memory leak prevention (`remove()` call requirement);
-  - JUC coordination utilities (CountDownLatch, CyclicBarrier, Semaphore).
-- **`threadpool/`**:
-  - Seven core parameters of ThreadPoolExecutor and task rejection lifecycle;
-  - Default rejection policies and implementing custom alerting/persistence rejection policies;
-  - Dynamic thread pool parameter tuning and sizing formulas for CPU-bound vs IO-bound workloads.
+Mastery of synchronization, lock escalation, lock-free concurrency, and industrial thread pool management:
+- **Locking & Primitives**: `volatile` memory barriers, `synchronized` lock escalation (No lock -> Biased -> Lightweight -> Heavyweight), optimistic vs pessimistic locking, and CAS ABA resolution via `AtomicStampedReference`.
+- **AQS Architecture**: Synchronization state, CLH queue variants, and writing a custom fair reentrant lock from scratch.
+- **Multithreading Utilities**: Deadlock conditions and avoidance via `Lock.tryLock()`, ThreadLocal memory leak prevention, CountDownLatch, CyclicBarrier, and Semaphore.
+- **ThreadPool Executor**: 7 core parameters, task scheduling flow, default rejection policies, custom alerting/persistence policies, and formula-based sizing for CPU vs IO workloads.
 
-### Day 06: JVM Deep Dive (Memory Structure, Class Loading & Garbage Collection)
-Deconstructing the virtual machine black box from bytecode execution to GC:
-- **`memory/` (JVM Runtime Data Areas & OOM Troubleshooting)**:
-  - Five runtime data areas (Heap, Stack, Method Area, PC, Native Method Stack);
-  - Stack vs Heap (values, references, and objects);
-  - Heap generational structure (Eden, Survivor, Old, Humongous) and large object direct allocation;
-  - Method area evolution (PermGen to Metaspace) and execution engine;
-  - String Constant Pool mechanics, memory allocations in `String s = new String("abc")`;
-  - Reference types (Strong, Soft, Weak, Phantom) and WeakHashMap caching;
-  - Memory leak and OOM scenarios, diagnostic tools (MAT, JProfiler, VisualVM), and tuning guidelines.
-- **`classloading/` (Class Initialization & Parents Delegation)**:
-  - Six-step object creation lifecycle (Loading -> Linking -> Initialization -> Usage -> Unloading);
-  - ClassLoader hierarchy (Bootstrap, Extension/Platform, Application, Custom);
-  - Parents Delegation model definition and three core benefits (security, consistency, single-load guarantee);
-  - Scenarios breaking Parents Delegation (SPI, OSGi, Tomcat isolation) and writing a custom delegating ClassLoader.
-- **`gc/` (Garbage Collection Algorithms & Collectors)**:
-  - Garbage collection definitions and automatic vs explicit triggers;
-  - Liveness detection: Reference Counting flaws vs Reachability Analysis and object revival via `finalize()`;
-  - Core GC algorithms: Mark-Sweep, Mark-Copy, Mark-Compact, Generational, and Region-based partitioning;
-  - Fatal drawbacks of Mark-Sweep (memory fragmentation and non-uniform allocation latency);
-  - Stop The World (STW) phases across collectors;
-  - Distinctions between Minor GC, Major GC, and Full GC; Six trigger scenarios for Full GC;
-  - Collector taxonomy (Serial, Parallel, CMS, G1, ZGC, Shenandoah);
-  - Comprehensive comparison between CMS and G1 across six architectural dimensions;
-  - Seven defining features of G1 (Region layout, Garbage-First heuristic, Predictable pause-time model, SATB, etc.);
-  - GC scope (Heap regions as well as Metaspace constant pool clearing and class unloading).
+### Day 06: JVM Deep Dive (Memory Layout, Class Loading & Garbage Collection)
+Deconstructing virtual machine internals from bytecode execution to GC:
+- **JVM Memory Areas**: 5 runtime data areas, stack frames, heap generational structures, and method area/metaspace evolution.
+- **Object Allocations & Leaks**: String constant pool allocation mechanics, strong/soft/weak/phantom reference taxonomy, and diagnosing OOM via MAT/JProfiler.
+- **Class Loading & Delegation**: 6-stage object lifecycle, ClassLoader hierarchy, Parents Delegation model, and custom ClassLoaders breaking delegation for container isolation.
+- **Garbage Collection Mastery**: Liveness detection (Reference counting flaws vs Reachability analysis), GC algorithms (Mark-Sweep, Mark-Copy, Mark-Compact, Generational, Region-based), STW phases, Minor vs Major vs Full GC, Full GC triggers, and comprehensive comparison of CMS vs G1 collectors.
 
 ---
 
-## 3. Engineering Quality & Standards
+<a name="quick-start"></a>
+## 三、快速开始 / Quick Start
 
-1. **Faithful Interview Mapping**: Retains real-world corporate interview questions accompanied by in-depth solutions for rapid revision and lasting architectural mastery.
-2. **100% Standalone Executable**: Every principal topic includes a self-contained `main` method for immediate debugging and live console tracing.
-3. **Zero-Emoji Professional Style**: Strictly enforces standard industrial formatting without any emoji characters, ensuring clean, uncorrupted console output across all operating systems.
-4. **Zero Compilation Warnings & Errors**: All 150+ source files pass strict full-repository compilation checks (`javac`).
+### 1. 环境准备 / Prerequisites
+
+- **JDK**: JDK 17 或 JDK 21 LTS (推荐 JDK 21，向前兼容 Java 8 核心语法) / JDK 17 or JDK 21 LTS recommended.
+- **IDE**: IntelliJ IDEA 2023.1+ / VS Code.
+- **Encoding**: 统一 UTF-8 编码 / UTF-8 character encoding throughout.
+
+### 2. 克隆仓库与运行 / Clone & Execute
+
+```bash
+# 1. 克隆本仓库 / Clone repository
+git clone https://github.com/LinSky-J/javacode.git
+
+# 2. 进入项目根目录 / Navigate to project root
+cd "Java interview"
+
+# 3. 命令行验证全量编译 / Verify full compilation via CLI
+javac -encoding UTF-8 day06/gc/GarbageCollectionInterviewMasterSummary.java
+java -Dfile.encoding=UTF-8 -cp . gc.GarbageCollectionInterviewMasterSummary
+```
+
+在 IntelliJ IDEA 中，只需右键任意类名（例如 `day06/gc/GarbageCollectionInterviewMasterSummary.java`），点击 **Run** 即可在控制台直接查看结构化输出与深度推导日志。
 
 ---
 
-## 4. Quick Start
-
-### 1. Prerequisites
-- **Operating System**: Windows, macOS, or Linux
-- **IDE**: IntelliJ IDEA 2023+ or Visual Studio Code
-- **JDK**: JDK 17 or JDK 21 (JDK 21 recommended for Virtual Thread execution; backwards-compatible with Java 8 core syntax)
-- **Encoding**: UTF-8
-
-### 2. Clone and Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/LinSky-J/javacode.git
-   ```
-2. Open IntelliJ IDEA and choose `File -> Open`, then select the repository root directory.
-3. Verify that the Project SDK is set to JDK 17 or JDK 21.
-4. Open any class file (for example, `day06/gc/GarbageCollectionInterviewMasterSummary.java`) and run the `main` method to inspect the live execution trace and analysis in the console.
-
----
-
-## 5. Repository Structure Tree / 目录结构树
+## 四、项目完整源码目录树 / Repository File Tree
 
 ```text
 Java interview/
-├── README.md                      # Bilingual Project Documentation / 中英文项目说明文档
-├── day01/                         # Java Foundations / Java 核心基础
-│   ├── annotations/
-│   ├── basics/
-│   ├── copy/
-│   ├── datatypes/
-│   ├── exceptions/
-│   ├── execution/
-│   ├── generics/
-│   ├── jvm/
-│   ├── keywords/
-│   ├── objects/
-│   ├── oop/
-│   ├── parameters/
-│   ├── reflection/
-│   └── strings/
-├── day02/                         # Modern Java & Advanced / 现代 Java 特性与进阶
-│   ├── async/
-│   ├── java21/
-│   ├── java8/
-│   ├── other/
-│   ├── serialization/
-│   └── stream/
-├── day03/                         # Collections Framework / 集合框架源码
-│   ├── concept/
-│   ├── list/
-│   ├── map/
-│   └── set/
-├── day04/                         # Multithreading & JMM / 多线程与内存模型
-│   ├── communication/
-│   ├── creation/
-│   ├── interrupt/
-│   ├── jmm/
-│   ├── lifecycle/
-│   ├── model/
-│   ├── overview/
-│   └── waitnotify/
-├── day05/                         # Concurrency Safety & JUC / 并发安全与 JUC 实战
-│   ├── concurrentsafety/
-│   ├── multithread/
-│   └── threadpool/
-└── day06/                         # JVM Deep Dive / JVM 虚拟机深度探索
-    ├── classloading/
-    ├── gc/
-    └── memory/
+├── README.md                      # 中英文双语技术全景说明文档 (Bilingual Tech Specs)
+├── day01/                         # Java 核心基础与面向对象机制 (Core Foundations & OOP)
+│   ├── annotations/               # 自定义注解与运行时解析框架
+│   ├── basics/                    # 语言特性与 Java vs Python 全维度对比
+│   ├── copy/                      # 浅拷贝 vs 深拷贝实现机制
+│   ├── datatypes/                 # 基本数据类型与包装类缓存机制
+│   ├── exceptions/                # 异常体系结构与 try-catch 字节码流转
+│   ├── execution/                 # 跨平台运行机制与解释/编译混合执行
+│   ├── generics/                  # 泛型设计与类型擦除底层机制
+│   ├── jvm/                       # JVM/JRE/JDK 架构全览
+│   ├── keywords/                  # static 与 final 关键字底层机理
+│   ├── objects/                   # Object 核心方法与 equals/hashCode 契约
+│   ├── oop/                       # 面向对象三大特性、抽象类 vs 接口
+│   ├── parameters/                # Java 参数传递机制（值传递图解）
+│   ├── reflection/                # 反射机制原理与私有属性访问突破
+│   └── strings/                   # String 不可变性与 StringBuilder 扩容
+├── day02/                         # 现代 Java 特性与进阶 (Modern Java & Advanced)
+│   ├── async/                     # CompletableFuture 异步流水线编排
+│   ├── java21/                    # Java 21 虚拟线程 (Virtual Thread) 架构
+│   ├── java8/                     # Lambda 表达式与函数式接口实战
+│   ├── other/                     # JNI 本地方法与操作系统底层交互
+│   ├── serialization/             # Java 序列化规范与 serialVersionUID 机制
+│   └── stream/                    # Stream API 常用算子与惰性求值
+├── day03/                         # 集合框架源码深度剖析 (Collections Framework)
+│   ├── concept/                   # Collection 架构全览与遍历性能对比
+│   ├── list/                      # ArrayList 扩容、并发安全与 CopyOnWriteArrayList
+│   ├── map/                       # HashMap 源码、红黑树、扩容与 ConcurrentHashMap
+│   └── set/                       # HashSet 去重机制、LinkedHashSet 与 TreeSet 排序
+├── day04/                         # 多线程基础与 JMM 内存模型 (Multithreading & JMM)
+│   ├── communication/             # 线程间通信模式（共享内存、管道、条件队列）
+│   ├── creation/                  # 线程创建方式与设计权衡
+│   ├── interrupt/                 # 协作式中断机制与优雅停机方案
+│   ├── jmm/                       # JMM 内存模型、可见性、有序性与 Happens-Before
+│   ├── lifecycle/                 # 线程六大生命周期状态机精准流转
+│   ├── model/                     # 线程 1:1 内核映射模型与协程对比
+│   ├── overview/                  # 并发编程阶段演进与面试总纲
+│   └── waitnotify/                # ObjectMonitor 监视器与虚假唤醒防护
+├── day05/                         # 并发安全与 JUC 实战 (Concurrency Safety & JUC)
+│   ├── concurrentsafety/          # Volatile、锁升级、CAS/ABA 与手写 AQS 公平锁
+│   ├── multithread/               # 死锁排查、ThreadLocal 内存泄漏与 JUC 工具类
+│   └── threadpool/                # 线程池七大参数、自定义拒绝策略与动态容量调优
+└── day06/                         # JVM 虚拟机深度探秘 (JVM Deep Dive)
+    ├── classloading/              # 对象生命周期、类加载过程与打破双亲委派实战
+    ├── gc/                        # 垃圾回收算法、STW 剖析、CMS vs G1、Full GC 触发场景
+    └── memory/                    # 运行时数据区、堆结构、常量池、引用类型与 OOM 排查
 ```
+
+---
+
+<div align="center">
+
+**Engineering Standard**: Zero Emojis &nbsp;|&nbsp; 100% Compilable &nbsp;|&nbsp; Production Grade
+
+Designed and Maintained with Architectural Rigor.
+
+</div>
