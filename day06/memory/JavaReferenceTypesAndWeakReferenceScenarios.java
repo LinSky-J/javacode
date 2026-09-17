@@ -1,4 +1,4 @@
-package reference;
+package memory;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
