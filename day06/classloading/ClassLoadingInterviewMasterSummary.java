@@ -2,7 +2,7 @@ package classloading;
 
 /**
  * ==============================================================================================
- * 面试专题：JVM 类的初始化与加载、对象创建与 ClassLoader 大厂通关速记 (ClassLoadingInterviewMasterSummary)
+ * 面试专题：JVM 类的初始化与加载、对象创建与双亲委派原则大厂通关速记 (ClassLoadingInterviewMasterSummary)
  * ==============================================================================================
  * 本类将本次 JVM 类的初始化和加载专题中的全部核心题目进行结构化提炼，
  * 形成直击底层、大厂面试背诵金句，并作为整个 classloading 文件夹的核心导航入口。
@@ -39,45 +39,52 @@ package classloading;
  *        ③ 应用程序类加载器（AppClassLoader）：Java 编写，加载用户 ClassPath 路径上的类，是程序默认的类加载器；
  *        ④ 自定义类加载器（Custom ClassLoader）：继承 ClassLoader，重写 findClass()，用于源码加密解密、网络加载、热部署与隔离。
  *
- * Q4: 什么是双亲委派机制？为什么需要它？
- * -> 答：工作机制：自底向上委托检查缓存，自顶向下尝试加载。收到请求先委托给父加载器，父加载器找不到才由子加载器尝试加载。
- *        三大目的：
- *        ① 沙箱安全防篡改：防止自定义同名恶意类（如恶意 java.lang.String）篡改核心 API；
- *        ② 避免类重复加载：父加载器加载过则无需重复加载，节约元空间；
- *        ③ 保证类型唯一性：同一个类必须由同一个 ClassLoader 加载才在 JVM 中被视为相同类型。
+ * Q4: Java中双亲委派 是什么？有啥用? / 双亲委派模型的作用
+ * -> 答：【是什么】：
+ *        类加载器收到加载请求时，首先不自己尝试加载，而是逐层委派给父加载器去加载（自底向上查缓存），
+ *        只有父加载器反馈无法加载（抛 ClassNotFoundException）时，子加载器才尝试自己去加载（自顶向下试加载）。
+ *        【有啥用 / 作用】：
+ *        ① 沙箱安全防篡改：防止自定义恶意类（如篡改 java.lang.String）破坏系统核心 API；
+ *        ② 避免类重复加载：父类加载过的类子类直接复用，保障元空间性能；
+ *        ③ 保证核心类类型唯一性：全限定类名 + ClassLoader 共同决定类的唯一性，确保基础类型在全局一致；
+ *        ④ 建立规范清晰的类库分工与模块化隔离边界。
  *
- * Q5: 有哪些破坏双亲委派的场景？
- * -> 答：三大经典场景：
- *        ① 历史包袱：JDK 1.2 之前已有 ClassLoader，通过重写 loadClass() 自定义加载；JDK 1.2 起规范推荐重写 findClass()；
- *        ② 核心类调用用户代码（SPI 机制）：如 JDBC DriverManager，rt.jar 中的接口由 Bootstrap 加载，但 MySQL 实现类在 ClassPath，
- *           通过【线程上下文类加载器（Thread Context ClassLoader）】反向委派子类加载器加载；
- *        ③ Web 容器隔离与热部署：Tomcat 的 WebappClassLoader 优先加载自身 WEB-INF 目录下的类，实现不同应用间同名不同版本 jar 包彻底物理隔离。
+ * Q5: 讲一下类加载过程?
+ * -> 答：类加载分为五大阶段（加载、验证、准备、解析、初始化）：
+ *        ① 加载（Loading）：通过类全限定名获取二进制字节流，转化为方法区运行时数据结构，在堆中生成 java.lang.Class 镜像；
+ *        ② 验证（Verification）：文件格式验证（0xCAFEBABE）、元数据验证、字节码验证、符号引用验证，确保字节流安全合规；
+ *        ③ 准备（Preparation）：正式在方法区为 static 类变量分配内存并设置初始零值（注意：常量 static final 在此阶段直接赋真值）；
+ *        ④ 解析（Resolution）：将常量池内的符号引用替换为直接引用（静态解析非虚方法，运行期动态链接虚方法）；
+ *        ⑤ 初始化（Initialization）：执行类构造器 <clinit>() 方法（自动收集静态变量赋值与静态代码块合并执行），父类优先且线程安全同步。
  *
- * Q6: 类的完整生命周期与初始化时机是怎样的？
- * -> 答：七大阶段：加载 -> 验证 -> 准备（类变量赋初始零值，常量赋最终值）-> 解析（符号引用转直接引用）-> 初始化（执行 <clinit>）-> 使用 -> 卸载。
- *        执行顺序：父类静态代码块/属性 -> 子类静态代码块/属性 -> 父类构造代码块/构造函数 -> 子类构造代码块/构造函数。
- *        被动引用不触发初始化：通过子类引用父类静态字段、定义对象数组、引用 static final 编译期常量。
+ * Q6: 讲一下类的加载和双亲委派原则
+ * -> 答：紧密联动关系：
+ *        ① 分工联动：类加载机制是类生命周期的执行引擎，而双亲委派原则是 ClassLoader 在执行【加载 Loading 阶段获取字节流】时所遵照的最高路由查找策略！
+ *        ② 命名空间隔离：ClassLoader 不仅搬运字节流，还充当运行时命名空间边界。同一个 Class 文件由两个不同 ClassLoader 实例加载，
+ *           在 JVM 看来是两个完全独立且类型互不兼容的类（instanceof 返回 false，强转报 ClassCastException）。
+ *           双亲委派原则正是通过统一父类委派，消除了命名空间割裂与类型混乱。
  */
 public class ClassLoadingInterviewMasterSummary {
 
     public static void main(String[] args) {
         System.out.println("======================================================================");
-        System.out.println("      JVM 类的初始化与加载、对象创建与类加载器 6 问通关全景复盘       ");
+        System.out.println("      JVM 类的初始化与加载、对象创建与双亲委派 6 问通关全景复盘       ");
         System.out.println("======================================================================");
 
         System.out.println("【day06/classloading 模块类结构索引】");
-        System.out.println("1. ObjectCreationAndLifecycleMechanism.java");
-        System.out.println("   -> 涵盖：创建对象六大步骤（类加载检查、指针碰撞/空闲列表、TLAB/CAS并发分配、零值初始化、对象头Mark Word/Klass Word、<init>执行）；");
-        System.out.println("            对象七大生命周期阶段、可达性分析与GC Roots、finalize() 濒死救赎实测与弃用原因。");
-        System.out.println("2. ClassLoaderHierarchyAndDelegationMechanism.java");
-        System.out.println("   -> 涵盖：Bootstrap、Platform/Ext、App、Custom 四层类加载器体系、运行时委托树探查；");
-        System.out.println("            双亲委派机制底层两阶段工作原理、三大设计目的；");
-        System.out.println("            破坏双亲委派的三大经典场景（JDK 历史重写 loadClass、JDBC SPI 线程上下文类加载器反向委派、Tomcat WebappClassLoader 隔离）。");
-        System.out.println("3. ClassLoadingAndInitializationProcess.java");
-        System.out.println("   -> 涵盖：类生命周期七大阶段（加载、验证、准备、解析、初始化、使用、卸载）；");
-        System.out.println("            准备阶段赋零值 vs 编译期常量赋真值；");
-        System.out.println("            主动引用 6 大触发初始化场景 vs 被动引用 3 大不触发陷阱；");
-        System.out.println("            <clinit> 类构造器与 <init> 实例构造器父子类嵌套执行顺序现场实测。");
+        System.out.println("1. ParentsDelegationModelAndClassLoaderPrinciples.java");
+        System.out.println("   -> 涵盖：Java 中双亲委派是什么？有啥用？双亲委派模型的核心作用；");
+        System.out.println("            ClassLoader.loadClass() 源码拆解、沙箱安全防篡改现场拦截实测。");
+        System.out.println("2. ClassLoadingDeepDiveAndDelegationIntegration.java");
+        System.out.println("   -> 涵盖：讲一下类加载过程？讲一下类的加载和双亲委派原则；");
+        System.out.println("            类加载五步底层细节、命名空间隔离与不同 ClassLoader 类型不匹配实测。");
+        System.out.println("3. ObjectCreationAndLifecycleMechanism.java");
+        System.out.println("   -> 涵盖：创建对象六大步骤（类加载检查、指针碰撞/空闲列表、TLAB/CAS并发分配、零值初始化、对象头设置、<init>构造执行）；");
+        System.out.println("            对象七大生命周期阶段、可达性分析与 GC Roots、finalize() 濒死救赎实测。");
+        System.out.println("4. ClassLoaderHierarchyAndDelegationMechanism.java");
+        System.out.println("   -> 涵盖：四层类加载器体系与运行时打印、双亲委派破坏三大场景（历史兼容、JDBC SPI 线程上下文类加载器、Tomcat 隔离）。");
+        System.out.println("5. ClassLoadingAndInitializationProcess.java");
+        System.out.println("   -> 涵盖：类生命周期七大阶段、主动引用 6 大触发初始化场景 vs 被动引用 3 大陷阱、<clinit> 与 <init> 父子类执行顺序实测。");
 
         System.out.println("\n======================================================================");
         System.out.println("          类的初始化和加载全部题目已整理于 day06/classloading 文件夹   ");
