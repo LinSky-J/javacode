@@ -1,4 +1,4 @@
-package heap;
+package memory;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
