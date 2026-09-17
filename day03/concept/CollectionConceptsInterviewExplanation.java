@@ -63,6 +63,7 @@ public class CollectionConceptsInterviewExplanation {
     /**
      * 问题 2 深度解析
      */
+    //说说Java中的集合
     private static void explainJavaCollectionsFramework() {
         System.out.println("【理论解答】");
         System.out.println("Java 集合框架（JCF）主要由两大顶层根接口组成：");
@@ -92,6 +93,7 @@ public class CollectionConceptsInterviewExplanation {
     /**
      * 问题 3 深度解析
      */
+    //3.java中的线程安全的集合是什么？
     private static void explainThreadSafeCollections() {
         System.out.println("【理论解答】");
         System.out.println("Java 线程安全集合经历了三代重大技术演进：");
@@ -114,6 +116,7 @@ public class CollectionConceptsInterviewExplanation {
     /**
      * 问题 4 深度解析
      */
+    //Collections和Collection的区别
     private static void explainCollectionVsCollections() {
         System.out.println("【理论解答】");
         System.out.println("1. 概念本质区别：");

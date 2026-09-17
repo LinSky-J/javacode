@@ -25,13 +25,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 一、线程池核心参数详解 (ThreadPoolExecutor 七大参数)
  * ==============================================================================================
  * public ThreadPoolExecutor(
- *     int corePoolSize,                      // 1. 核心线程数（常驻线程数量）
- *     int maximumPoolSize,                   // 2. 最大线程数（线程池能容纳的最大并发线程数）
- *     long keepAliveTime,                    // 3. 非核心线程空闲存活时间
- *     TimeUnit unit,                         // 4. 存活时间的时间单位
- *     BlockingQueue<Runnable> workQueue,     // 5. 任务阻塞队列（存放待执行任务的缓冲区）
- *     ThreadFactory threadFactory,           // 6. 线程创建工厂（定制线程名称、优先级、Daemon等）
- *     RejectedExecutionHandler handler       // 7. 拒绝策略（队列满且工作线程达最大数时的兜底策略）
+ *     int corePoolSize,                      // 1. 核心线程数（常驻线程数量）corePoolSize
+ *     int maximumPoolSize,                   // 2. 最大线程数（线程池能容纳的最大并发线程数）maximumPoolSize
+ *     long keepAliveTime,                    // 3. 非核心线程空闲存活时间 keepAliveTime
+ *     TimeUnit unit,                         // 4. 存活时间的时间单位  unit
+ *     BlockingQueue<Runnable> workQueue,     // 5. 任务阻塞队列（存放待执行任务的缓冲区） workQueue
+ *     ThreadFactory threadFactory,           // 6. 线程创建工厂（定制线程名称、优先级、Daemon等） threadFactory
+ *     RejectedExecutionHandler handler       // 7. 拒绝策略（队列满且工作线程达最大数时的兜底策略） handler
  * )
  *
  * ==============================================================================================
@@ -69,6 +69,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *        else if (workerCountOf(recheck) == 0) // <--- 关键源码！
  *            addWorker(null, false);           // 即使核心线程数为0，只要队列有任务，就会创建非核心 Worker 消费队列！
  *    }
+ *    //即使核心线程数为0，只要队列有任务，就会创建非核心Worker消费队列。
  *    ```
  * 2. 经典应用：
  *    - Executors.newCachedThreadPool() 正是 corePoolSize = 0, maximumPoolSize = Integer.MAX_VALUE,

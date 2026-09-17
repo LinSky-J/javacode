@@ -43,7 +43,7 @@ public class ArrayVsCollectionComparison {
         // 1. 基本数据类型存储与内存紧凑性
         int[] primitiveArray = new int[]{10, 20, 30};
         System.out.println("1. 数组直接存储基本类型 int，无对象头与装箱开销，长度固定: " + primitiveArray.length);
-
+        int[] primitiveArray2 = {10, 20, 30};
         //
         double[] d1 = {10.1,20.2};
         // 集合只能存储引用对象，自动装箱为 Integer
@@ -68,6 +68,7 @@ public class ArrayVsCollectionComparison {
 
         // 集合通过泛型不变性在编译期彻底阻断类型不兼容
         // List<Object> objectList = new ArrayList<String>(); // 编译错误！Type mismatch
+        List<Object> objects=new ArrayList<>();
         System.out.println("5. 集合通过泛型不变性在编译阶段确保类型安全，避免运行时隐患。");
     }
 }
