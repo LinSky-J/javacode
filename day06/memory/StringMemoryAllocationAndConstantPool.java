@@ -1,4 +1,4 @@
-package string;
+package memory;
 
 /**
  * String 存储位置演进、字符串常量池底层机制与 String s = new String("abc") 内存全景深度解析
