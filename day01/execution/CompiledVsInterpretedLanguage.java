@@ -113,6 +113,7 @@ public class CompiledVsInterpretedLanguage {
          *    - 先编译：javac 将 .java 源码编译成与平台无关的标准字节码（.class）。
          *    - 后混合执行：JVM 先用解释器快速启动，对高频热点代码使用 JIT（即时编译器）编译成本地机器码。
          *    - 结论：Java 不能被草率定义为纯编译型或纯解释型，而属于【半编译、半解释的混合型语言】。
+         //java属于半编译、半解释的混合语言。
          *
          * 2. 现代 JavaScript 引擎（如 Google Chrome V8）：
          *    - 虽然 JS 传统上被认为是解释型语言，但 V8 引擎内部直接配备了 Ignition 解释器与 TurboFan JIT 编译器，

@@ -135,7 +135,8 @@ public class ObjectMethodsAndComparisonExplanation {
          *        public boolean equals(Object obj) { return (this == obj); }
          *      - 'equals()' 被重写后（如 String, Integer, Date, 或自定义 JavaBean），通常根据业务规则比较两个对象的【逻辑内容/属性值】是否相同。
          */
-
+        //首先equals是Object中定义的方法，而==是java的操作符，1.对于基本数据类型==比较的是值是否相同，而基本类型没有equals方法。
+        //对于引用类型类型，==和equals方法没有重写之前都是比较的是内存地址，如果是重新后的equals方法基本功是对比内容是否相同。
         System.out.println("1. [实测 1：基本类型 vs 引用类型]");
         int a = 100;
         int b = 100;

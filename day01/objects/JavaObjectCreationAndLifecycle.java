@@ -68,6 +68,7 @@ public class JavaObjectCreationAndLifecycle {
         // 方式二：反射机制（通过 Constructor.newInstance 反射调用构造器）
         System.out.println("\n--- [方式二] 反射机制创建对象（除了 new 之外的方式，触发构造函数） ---");
         try {
+            Class<?> aClass = Class.forName("objects.TargetUser");
             Class<?> userClass = Class.forName("objects.TargetUser");
             Constructor<?> constructor = userClass.getConstructor(String.class, int.class);
             TargetUser user2 = (TargetUser) constructor.newInstance("李四(反射版)", 25);
@@ -85,10 +86,12 @@ public class JavaObjectCreationAndLifecycle {
         // 方式四：反序列化（除了 new 之外的方式，从字节流重建，完全不触发构造函数！）
         System.out.println("\n--- [方式四] 反序列化创建对象（除了 new 之外的方式，不执行构造函数！） ---");
         try {
+            //序列化
             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
             try (ObjectOutputStream oos = new ObjectOutputStream(byteOut)) {
                 oos.writeObject(user1);
             }
+            //反序列化
             ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
             try (ObjectInputStream ois = new ObjectInputStream(byteIn)) {
                 TargetUser user4 = (TargetUser) ois.readObject();

@@ -49,6 +49,7 @@ public class AbstractClassVsInterface {
         System.out.println("6. 抽象类与普通类的核心区别：");
 
         /*
+         *6.抽象类和普通类的区别？
          * 1. 实例化能力：
          *    - 普通类：有完整的实现，可以直接通过 new 关键字实例化对象。
          *    - 抽象类：由 abstract 修饰，【绝不能直接 new 实例化】！

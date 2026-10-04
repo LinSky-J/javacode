@@ -43,7 +43,7 @@ public class JvmConceptAndJdkJreRelationship {
          *    - JVM（Java Virtual Machine，Java 虚拟机）是一台逻辑上的【虚拟计算机】。
          *    - 它有自己完善的硬件抽象架构：包括一套虚拟指令集（字节码指令）、程序计数器、
          *      操作数栈、局部变量表以及运行时内存区域分配与管理模型。
-         *
+         *jvm是一台逻辑上的[虚拟计算机]
          * 2. JVM 的核心核心四大子系统：
          *    - 【类加载子系统（Class Loader Subsystem）】：负责从文件系统或网络中定位并加载 .class 字节码文件，
          *      并进行严格的连接（验证、准备、解析）与初始化。
@@ -90,7 +90,7 @@ public class JvmConceptAndJdkJreRelationship {
          *      在传统模式下只需要安装 JRE 即可，不需要安装庞大的开发工具。
          *    - 现代演进（重要考点）：从 Java 9 模块化（Project Jigsaw）开始，Oracle 已经取消了单独的 JRE 安装包，
          *      官方倡导使用 jlink 工具根据应用实际依赖的模块，定制裁剪出最小化的专属运行时环境。
-         *
+         *JRE(java运行环境，有Java代码运行需要的核心基础库)
          * 4. JDK（Java Development Kit，Java 开发者工具包）：
          *    - 构成：JRE + 完整的开发、调试、监控与诊断工具链。
          *    - 核心开发工具：

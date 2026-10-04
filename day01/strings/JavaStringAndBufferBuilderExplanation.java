@@ -140,6 +140,7 @@ public class JavaStringAndBufferBuilderExplanation {
          *
          * 1. 可变性（Mutability）区别：
          *    - String：不可变对象（Immutable）。
+         *      jdk8使用char [],使用字符串数组,JDK 9使用byte []数组进行存储。
          *      底层在 JDK 8 前为 private final char value[]，JDK 9 起为 private final byte[] value 配合 coder 编码标识。
          *      所有看似修改字符串的方法（如 concat, substring, replace），底层都会返回一个全新创建的 String 对象，原对象绝不改变。
          *    - StringBuffer 和 StringBuilder：可变字符序列（Mutable）。

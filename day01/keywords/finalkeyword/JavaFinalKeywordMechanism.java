@@ -59,6 +59,7 @@ public class JavaFinalKeywordMechanism {
          *    防止恶意子类继承并重写关键逻辑破坏不可变约定。
          * 3. 性能优化：JIT 编译器能确切知道不会有子类派生，直接内联方法调用，消除虚方法分派开销。
          */
+        //final修饰类，这个类就不能被继承，JIT编译器能明确的知道不会有子类派生，直接内联方法调用，消除虚方法分派开销。
         System.out.println("\n--- 维度一：final 修饰类（防篡改与内联优化） ---");
         FinalSecurityConfig config = new FinalSecurityConfig("AES_SECRET_987654321", 7200);
         config.printConfigSummary();
@@ -70,6 +71,7 @@ public class JavaFinalKeywordMechanism {
          * 2. 设计模式价值：模板方法模式（Template Method Pattern）的核心支撑。
          *    父类提供一个 final 骨架调度方法，锁定业务主干生命周期，子类只能实现可扩展节点，不能篡改主干。
          */
+        //final修饰的防范能被子类继承并正常的调用，但是严禁子类被重写
         System.out.println("\n--- 维度二：final 修饰方法（锁定核心业务逻辑骨架） ---");
         SubPaymentProcessor processor = new SubPaymentProcessor();
         processor.executeTransactionFlow("云闪付通道", 1200.0);

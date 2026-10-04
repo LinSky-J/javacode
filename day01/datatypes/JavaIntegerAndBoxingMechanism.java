@@ -4,11 +4,12 @@ package datatypes;
  * 面试专题：Java 包装类、自动装箱拆箱、Integer 与 int 全方位对比及缓存机制深度解析。
  *
  * 本类对应面试核心题目：
- * 1. 装箱和拆箱是什么?
- * 2. Java为什么要有Integer?
- * 3. Integer相比int有什么优点?
- * 4. 那为什么还要保留int类型?
- * 5. 说一下 integer的缓存
+ * 1. Java 8 种基本数据类型与对应包装类映射及继承体系？
+ * 2. 装箱和拆箱是什么?
+ * 3. Java为什么要有Integer?
+ * 4. Integer相比int有什么优点?
+ * 5. 那为什么还要保留int类型?
+ * 6. 说一下 integer的缓存
  *
  * 设计目标：
  * 从底层字节码指令（valueOf 与 intValue）、64位对象头内存结构、
@@ -25,6 +26,7 @@ public class JavaIntegerAndBoxingMechanism {
         System.out.println("      Java 包装类、装箱拆箱、Integer vs int 与缓存机制深度解析报告      ");
         System.out.println("======================================================================");
 
+        explainPrimitiveAndWrapperTypeMapping();
         explainAutoboxingAndUnboxing();
         explainWhyJavaNeedsIntegerAndAdvantages();
         explainWhyRetainIntPrimitiveType();
@@ -36,18 +38,78 @@ public class JavaIntegerAndBoxingMechanism {
     }
 
     /**
-     * 第一部分：装箱和拆箱是什么?
+     * 第一部分：Java 八种基本数据类型与对应包装类映射全景
+     *
+     * 面试核心考点：8 种基本类型与包装类的映射关系、继承体系架构（Number 抽象类 vs Object）、默认值与内存语义。
+     */
+    public static void explainPrimitiveAndWrapperTypeMapping() {
+        System.out.println("1. Java 八种基本数据类型与对应包装类映射全景：");
+
+        /*
+         * Java 为每一种基本数据类型都提供了对应的包装数据类型（Wrapper Class）：
+         * -----------------------------------------------------------------------------------------------------------------
+         * 数据分类     基本数据类型    包装数据类型 (Wrapper)     占用字节/位数   直接父类           默认值      缓存支持范围
+         * -----------------------------------------------------------------------------------------------------------------
+         * 整数型       byte           Byte                      1 字节 / 8位   java.lang.Number   null (基本: 0)     -128 ~ 127
+         * 整数型       short          Short                     2 字节 / 16位  java.lang.Number   null (基本: 0)     -128 ~ 127
+         * 整数型       int            Integer                   4 字节 / 32位  java.lang.Number   null (基本: 0)     -128 ~ 127 (上限可调)
+         * 整数型       long           Long                      8 字节 / 64位  java.lang.Number   null (基本: 0L)    -128 ~ 127
+         * 浮点型       float          Float                     4 字节 / 32位  java.lang.Number   null (基本: 0.0f)  无缓存 (浮点数无限稠密)
+         * 浮点型       double         Double                    8 字节 / 64位  java.lang.Number   null (基本: 0.0d)  无缓存 (浮点数无限稠密)
+         * 字符型       char           Character                 2 字节 / 16位  java.lang.Object   null (基本: \u0000) 0 ~ 127 (ASCII字符)
+         * 布尔型       boolean        Boolean                   1 字节 / JVM   java.lang.Object   null (基本: false) TRUE / FALSE 单例
+         * -----------------------------------------------------------------------------------------------------------------
+         *
+         * 核心继承与体系特征：
+         * 1. 抽象类 java.lang.Number：
+         *    - 6 个数值型包装类（Byte、Short、Integer、Long、Float、Double）均继承自 java.lang.Number。
+         *    - 统一提供 byteValue()、shortValue()、intValue()、longValue()、floatValue()、doubleValue()，
+         *      支持在各类数值类型之间自由转换。
+         * 2. 非数值型直接继承 java.lang.Object：
+         *    - Character 与 Boolean 不属于数值，直接继承自 Object。
+         * 3. 核心通用接口：
+         *    - 所有 8 种包装类均实现了 Comparable<T> 接口（支持对象比较排序）和 Serializable 接口（支持网络序列化）。
+         * 4. 不可变性（Immutable）：
+         *    - 所有包装类内部维护的数据字段（如 Integer 中的 private final int value）全部使用 final 修饰，
+         *      对象一旦创建即不可变更，天然具备多线程安全性。
+         */
+
+        System.out.println("---------------------------------------------------------------------------------------------------");
+        System.out.printf("%-8s %-10s %-15s %-15s %-18s %s%n", "数据分类", "基本类型", "对应包装类型", "占用空间", "直接父类", "缓存机制支持");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "整数型", "byte", Byte.class.getSimpleName(), "1字节 (8位)", Byte.class.getSuperclass().getSimpleName(), "[-128, 127]");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "整数型", "short", Short.class.getSimpleName(), "2字节 (16位)", Short.class.getSuperclass().getSimpleName(), "[-128, 127]");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "整数型", "int", Integer.class.getSimpleName(), "4字节 (32位)", Integer.class.getSuperclass().getSimpleName(), "[-128, 127] (可调上限)");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "整数型", "long", Long.class.getSimpleName(), "8字节 (64位)", Long.class.getSuperclass().getSimpleName(), "[-128, 127]");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "浮点型", "float", Float.class.getSimpleName(), "4字节 (32位)", Float.class.getSuperclass().getSimpleName(), "无缓存 (浮点数无限稠密)");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "浮点型", "double", Double.class.getSimpleName(), "8字节 (64位)", Double.class.getSuperclass().getSimpleName(), "无缓存 (浮点数无限稠密)");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "字符型", "char", Character.class.getSimpleName(), "2字节 (16位)", Character.class.getSuperclass().getSimpleName(), "[0, 127] (标准ASCII)");
+        System.out.printf("%-8s %-10s %-17s %-15s %-18s %s%n", "布尔型", "boolean", Boolean.class.getSimpleName(), "逻辑1位(1~4B)", Boolean.class.getSuperclass().getSimpleName(), "TRUE / FALSE 单例");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+
+        // 反射验证继承体系
+        System.out.println("\n[底层继承体系实测验证]：");
+        System.out.println("   Byte      父类: " + Byte.class.getSuperclass().getName() + " (数值型统一继承 Number)");
+        System.out.println("   Integer   父类: " + Integer.class.getSuperclass().getName() + " (数值型统一继承 Number)");
+        System.out.println("   Double    父类: " + Double.class.getSuperclass().getName() + " (数值型统一继承 Number)");
+        System.out.println("   Character 父类: " + Character.class.getSuperclass().getName() + " (非数值型直接继承 Object)");
+        System.out.println("   Boolean   父类: " + Boolean.class.getSuperclass().getName() + " (非数值型直接继承 Object)");
+    }
+
+    /**
+     * 第二部分：装箱和拆箱是什么?
      *
      * 面试核心考点：语法糖本质、底层调用的方法，以及生产中致命的自动拆箱 NPE。
      */
     public static void explainAutoboxingAndUnboxing() {
-        System.out.println("1. 装箱与拆箱机制解析：");
+        System.out.println("\n2. 装箱与拆箱机制解析：");
 
         /*
          * 1. 什么是装箱（Boxing）？
          *    - 定义：将【基本数据类型】转换为对应的【包装类引用对象】（如 int -> Integer）。
          *    - 底层本质：编译器在字节码层面自动调用 Integer.valueOf(int) 方法。
          */
+        //装箱就是将基本数据类型装换为对应的包装引用类型。
         int primitiveInt = 42;
         Integer boxedInteger = primitiveInt; // 自动装箱，底层等价于 Integer.valueOf(primitiveInt);
 
@@ -56,6 +118,7 @@ public class JavaIntegerAndBoxingMechanism {
          *    - 定义：将【包装类引用对象】转换为对应的【基本数据类型】（如 Integer -> int）。
          *    - 底层本质：编译器在字节码层面自动调用 integerObject.intValue() 方法。
          */
+        //拆箱就是将包装应用类型，转换为基本引用类型。
         Integer numberObj = Integer.valueOf(88);
         int unboxedInt = numberObj; // 自动拆箱，底层等价于 numberObj.intValue();
 
@@ -72,12 +135,12 @@ public class JavaIntegerAndBoxingMechanism {
     }
 
     /**
-     * 第二部分：Java为什么要有Integer? 以及 Integer相比int有什么优点?
+     * 第三部分：Java为什么要有Integer? 以及 Integer相比int有什么优点?
      *
      * 面试核心考点：泛型支持、反射框架兼容、表达 null 空值语义与丰富工具方法。
      */
     public static void explainWhyJavaNeedsIntegerAndAdvantages() {
-        System.out.println("\n2. Java 为什么需要 Integer 以及相比 int 的核心优点：");
+        System.out.println("\n3. Java 为什么需要 Integer 以及相比 int 的核心优点：");
 
         /*
          * 优点一：支持泛型容器（Java 集合框架只接受对象）
@@ -114,12 +177,12 @@ public class JavaIntegerAndBoxingMechanism {
     }
 
     /**
-     * 第三部分：那为什么还要保留int类型?
+     * 第四部分：那为什么还要保留int类型?
      *
      * 面试拔高亮点：从 64 位对象头内存开销、CPU 缓存局部性（Cache Line）、GC 压力三个底层维度秒杀面试官。
      */
     public static void explainWhyRetainIntPrimitiveType() {
-        System.out.println("\n3. 既然 Integer 这么好，为什么 Java 还要保留 int 基本类型？");
+        System.out.println("\n4. 既然 Integer 这么好，为什么 Java 还要保留 int 基本类型？");
 
         /*
          * 核心理由：【极致的内存空间节省】与【极其卓越的 CPU 运行性能】！
@@ -155,13 +218,13 @@ public class JavaIntegerAndBoxingMechanism {
     }
 
     /**
-     * 第四部分：说一下 integer的缓存 (IntegerCache)
+     * 第五部分：说一下 integer的缓存 (IntegerCache)
      *
      * 面试核弹级高频题目：享元模式、-128~127 范围、== 与 equals 的经典对比验证。
      */
     @SuppressWarnings("deprecation")
     public static void explainIntegerCacheMechanism() {
-        System.out.println("\n4. Integer 缓存机制（IntegerCache）全景深度剖析：");
+        System.out.println("\n5. Integer 缓存机制（IntegerCache）全景深度剖析：");
 
         /*
          * 1. 为什么要有 IntegerCache 缓存？

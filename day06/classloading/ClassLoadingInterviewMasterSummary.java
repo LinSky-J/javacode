@@ -31,6 +31,7 @@ package classloading;
  *        ⑥ 终结阶段（Finalized）：finalize 执行完毕且未复活，等待内存释放；
  *        ⑦ 释放阶段（Deallocated）：内存被回收并归还堆池。
  *        注：JDK 9 已废弃 finalize()，推荐使用 try-with-resources 或 Cleaner。
+ *        创建阶段->应用阶段->不可见阶段->不可达阶段->收集阶段->终结阶段->释放阶段
  *
  * Q3: 类的加载器有哪些？
  * -> 答：四层分层体系：

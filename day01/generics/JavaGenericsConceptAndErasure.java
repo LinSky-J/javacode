@@ -93,6 +93,7 @@ public class JavaGenericsConceptAndErasure {
         ResultWrapper<UserEntity> apiResponse = ResultWrapper.success(user1);
         System.out.println("   [泛型类与静态泛型方法实测] " + apiResponse);
 
+
         // 2.2 泛型接口与实现类
         GenericRepository<UserEntity, Long> userRepository = new UserRepositoryImpl();
         userRepository.save(user1);

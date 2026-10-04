@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * 面试专题：Java 八种基本数据类型、类型转换与浮点精度深度剖析。
  *
  * 本类对应面试核心题目：
- * 1. 八种基本的数据类型
+ * 1. 八种基本的数据类型 byte short int long float double boolean char
  * 2. int和long是多少位，多少字节的？
  * 3. long和int可以互转吗？
  * 4. 数据类型转换方式你知道哪些?
